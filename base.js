@@ -6,22 +6,24 @@ var login = require('./credentials/login.js');
 // Import handlers
 var handlers = require('./jej_modules');
 
+
 console.log('JEJBot loaded with:');
 for (command in handlers) 
     console.log(" - ", command);
 
 client.on('message', function(message) {
     var msg = message.content;
-    var formattedMessage = msg.split(' ', 3);
-    var firstWord = formattedMessage[0];
-    var command = formattedMessage[1];
-    var contentStart = formattedMessage[2];
+    var formattedMessage = msg.split(' ', 2);
+    var invocationCheck = formattedMessage[0][0];
+    var command = formattedMessage[0].substring(1);
+    var contentStart = formattedMessage[1];
+    console.log(command);
 
     // lmao hacky
     if (contentStart)
         var content = msg.substring(msg.indexOf(contentStart));
     
-    if (firstWord === 'jejbot') {
+    if (invocationCheck === '!') {
         if (command === 'help') {
             client.sendMessage(
                 message.channel, 
@@ -41,7 +43,7 @@ client.on('message', function(message) {
         else
             client.sendMessage(
                 message.channel, 
-                'Unrecognized command. Say "jejbot help" for commands.'
+                'Unrecognized command. Say "!help" for commands.'
             );
     }
 });

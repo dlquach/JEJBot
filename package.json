@@ -1,0 +1,14 @@
+{
+    "name": "JEJBot",
+    "version": "0.0.0",
+    "private": true,
+    
+    "scripts": {
+        "start": "node base.js"
+    },
+    
+    "dependencies": {
+        "discord.js": "*",
+        "google-images": "*"
+    }
+}

@@ -15,8 +15,8 @@ function basicBox(inputString) {
 
 function expandBox(inputString) {
     var repeatString = "SAFESPACE";
-    // The number of times SAFESPACE is to be repeated.
-    var repeatCount = Math.ceil(inputString.length / repeatString.length);
+    // The number of times SAFESPACE is to be repeated. The +4 is to compensate for the left S with one space, and the right S with one space.
+    var repeatCount = Math.ceil((inputString.length + 4) / repeatString.length);
 
     var row = repeatString.repeat(repeatCount);
     

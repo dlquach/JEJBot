@@ -65,7 +65,29 @@ describe("Safespace No Size Change", function() {
         expected += `C${spaces}A\n`;
         expected += `${rows.split('').reverse().join('')}\`\`\``;
 
-    done();
+        done();
+    });
+
+    it('32 characters', function(done) {
+        var rows = safe.repeat(4);
+        var spaces = (" ").repeat(34);
+
+        var text = alphabet + "oOoJeJ";
+
+        var expected = "```\n";
+        expected += `${rows}\n`;
+        expected += `A${spaces}C\n`;
+        expected += `F${spaces}A\n`;
+        expected += `E${spaces}P\n`;
+        expected += `S${" " + text + " "}S\n`;
+        expected += `P${spaces}E\n`;
+        expected += `A${spaces}F\n`;
+        expected += `C${spaces}A\n`;
+        expected += `${rows.split('').reverse().join("")}\`\`\``;
+
+        safespace(text).should.equal(expected);
+
+        done();
     });
 });
 
@@ -74,28 +96,52 @@ var secondHalf = 'nopqrstuvwxyz';
 var alphabet = firstHalf + secondHalf;
 
 describe("Safespace Size Change", function() {
-    it('1.5 alphabets', function(done) {
+    it('33 characters', function(done) {
         var rows = safe.repeat(5);
         var spaces = (" ").repeat(43);
+
+        var text = alphabet + "oOoJeJe";
 
         var expected = "```\n";
         expected += `${rows}\n`;
         expected += `A${spaces}C\n`;
         expected += `F${spaces}A\n`;
         expected += `E${spaces}P\n`;
-        expected += `S${"  " + alphabet + firstHalf + "  "}S\n`;
+        expected += `S${"     " + text + "     "}S\n`;
         expected += `P${spaces}E\n`;
         expected += `A${spaces}F\n`;
         expected += `C${spaces}A\n`;
         expected += `${rows.split('').reverse().join("")}\`\`\``;
 
-    safespace(alphabet + firstHalf).should.equal(expected);
+        safespace(text).should.equal(expected);
 
-    done();
+        done();
 
     });
 
-    it('1.49 alphabets (one less than previous)', function(done) {
+    it('34 characters', function(done) {
+        var rows = safe.repeat(5);
+        var spaces = (" ").repeat(43);
+
+        var text = alphabet + "oOoJeJeJ";
+
+        var expected = "```\n";
+        expected += `${rows}\n`;
+        expected += `A${spaces}C\n`;
+        expected += `F${spaces}A\n`;
+        expected += `E${spaces}P\n`;
+        expected += `S${"     " + text + "    "}S\n`;
+        expected += `P${spaces}E\n`;
+        expected += `A${spaces}F\n`;
+        expected += `C${spaces}A\n`;
+        expected += `${rows.split('').reverse().join("")}\`\`\``;
+
+        safespace(text).should.equal(expected);
+
+        done();
+    });
+
+    it('40 characters', function(done) {
         var rows = safe.repeat(5);
         var spaces = (" ").repeat(43);
 
@@ -118,4 +164,25 @@ describe("Safespace Size Change", function() {
 
     });
 
+
+    it('41 characters', function(done) {
+        var rows = safe.repeat(5);
+        var spaces = (" ").repeat(43);
+
+        var expected = "```\n";
+        expected += `${rows}\n`;
+        expected += `A${spaces}C\n`;
+        expected += `F${spaces}A\n`;
+        expected += `E${spaces}P\n`;
+        expected += `S${"  " + alphabet + firstHalf + "  "}S\n`;
+        expected += `P${spaces}E\n`;
+        expected += `A${spaces}F\n`;
+        expected += `C${spaces}A\n`;
+        expected += `${rows.split('').reverse().join("")}\`\`\``;
+
+        safespace(alphabet + firstHalf).should.equal(expected);
+
+        done();
+
+    });
 });

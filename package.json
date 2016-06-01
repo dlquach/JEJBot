@@ -4,7 +4,7 @@
     "private": true,
     
     "scripts": {
-        "start": "node base.js",
+        "start": "npm install; node base.js",
         "test": "./node_modules/.bin/mocha"
     },
     

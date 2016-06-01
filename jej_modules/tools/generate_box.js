@@ -1,3 +1,5 @@
+"use strict";
+
 function basicBox(inputString) {
     // Half of the width of the safe space
     var space = 18;

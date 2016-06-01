@@ -4,11 +4,17 @@
     "private": true,
     
     "scripts": {
-        "start": "node base.js"
+        "start": "node base.js",
+        "test": "./node_modules/.bin/mocha"
     },
     
     "dependencies": {
         "discord.js": "*",
         "google-images": "*"
+    },
+
+    "devDependencies": {
+        "mocha": "*",
+        "chai": "*"
     }
 }

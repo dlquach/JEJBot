@@ -1,8 +1,15 @@
 /**
- * Uptime lel
+ * Uptime in days, hours, minutes, etc. Logic yanked from SO.
  */
 var uptimeHandler = function(client, channel) {
-    client.sendMessage(channel, client.uptime);
+    var date = new Date(client.uptime);
+    var uptime = '';
+    uptime += date.getUTCDate()-1 + " days, ";
+    uptime += date.getUTCHours() + " hours, ";
+    uptime += date.getUTCMinutes) + " minutes, ";
+    uptime += date.getUTCSeconds() + " seconds, ";
+    uptime += date.getUTCMilliseconds() + " millis.";
+    client.sendMessage(channel, uptime);
 }
 
 module.exports = uptimeHandler;

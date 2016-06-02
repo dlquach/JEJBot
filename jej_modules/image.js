@@ -6,6 +6,7 @@ var imageClient = googleImages(keys.cseID, keys.apiKey);
 var imageHandler = function (client, channel, content) {
     if (!content) {
         client.sendMessage(channel, "Usage: !image <query>");
+        return;
     }
     console.log("Searching for: ", content);
     imageClient.search(content)

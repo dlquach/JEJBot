@@ -7,9 +7,8 @@ var uptimeHandler = function(client, channel) {
     uptime += date.getUTCDate()-1 + " days, ";
     uptime += date.getUTCHours() + " hours, ";
     uptime += date.getUTCMinutes() + " minutes, ";
-    uptime += date.getUTCSeconds() + " seconds, ";
-    uptime += date.getUTCMilliseconds() + " millis.";
-    client.sendMessage(channel, uptime);
+    uptime += date.getUTCSeconds() + " seconds";
+    client.sendMessage(channel, "JEJBot has been alive for " + uptime);
 }
 
 module.exports = uptimeHandler;

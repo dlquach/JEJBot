@@ -6,7 +6,7 @@ var uptimeHandler = function(client, channel) {
     var uptime = '';
     uptime += date.getUTCDate()-1 + " days, ";
     uptime += date.getUTCHours() + " hours, ";
-    uptime += date.getUTCMinutes) + " minutes, ";
+    uptime += date.getUTCMinutes() + " minutes, ";
     uptime += date.getUTCSeconds() + " seconds, ";
     uptime += date.getUTCMilliseconds() + " millis.";
     client.sendMessage(channel, uptime);

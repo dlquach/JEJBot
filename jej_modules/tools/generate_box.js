@@ -24,11 +24,11 @@ function expandBox(inputString) {
     
     // The number of spaces
     var rowCount = row.length
-    var spaces = (" ").repeat(row.length - 2);
+    var spaces = (" ").repeat(rowCount - 2);
 
 
     var leftSpaceCount = Math.floor(rowCount / 2) - Math.ceil(inputString.length / 2);
-    var rightSpaceCount = Math.floor(rowCount / 2) - Math.floor(inputString.length / 2);
+    var rightSpaceCount = (rowCount - 2) - leftSpaceCount - inputString.length;
 
     var leftSpaces = (" ").repeat(leftSpaceCount);
     var rightSpaces = (" ").repeat(rightSpaceCount);

@@ -17,7 +17,6 @@ client.on('message', function(message) {
     var invocationCheck = formattedMessage[0][0];
     var command = formattedMessage[0].substring(1);
     var contentStart = formattedMessage[1];
-    console.log(command);
 
     // lmao hacky
     if (contentStart)

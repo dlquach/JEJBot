@@ -198,7 +198,30 @@ describe("Safespace Size Change", function() {
         expected += `F${spaces}A\n`;
         expected += `E${spaces}P\n`;
 
-        expected += `S${"  " + "off by juan off by juan  off by juan  off by juan" + " "}S\n`;
+        expected += `S${" " + juan + "  "}S\n`;
+        expected += `P${spaces}E\n`;
+        expected += `A${spaces}F\n`;
+        expected += `C${spaces}A\n`;
+        expected += `${rows.split('').reverse().join("")}\`\`\``;
+
+        safespace(juan).should.equal(expected);
+
+        done();
+    });
+
+    it('yuto is a japanese guy who likes to play adc', function(done) {
+        var rows = safe.repeat(6);
+        var spaces = (" ").repeat(52);
+
+        var juan = 'yuto is a japanese guy who likes to play adc'; 
+
+        var expected = "```\n";
+        expected += `${rows}\n`;
+        expected += `A${spaces}C\n`;
+        expected += `F${spaces}A\n`;
+        expected += `E${spaces}P\n`;
+
+        expected += `S${"    " + juan + "    "}S\n`;
         expected += `P${spaces}E\n`;
         expected += `A${spaces}F\n`;
         expected += `C${spaces}A\n`;

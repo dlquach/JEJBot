@@ -1,3 +1,6 @@
 credentials/
 node_modules/
 test.js
+
+# Get rid of vim temp files.
+*.swp

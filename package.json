@@ -9,6 +9,7 @@
     
     "dependencies": {
         "discord.js": "*",
-        "google-images": "*"
+        "google-images": "*",
+        "simple-git": "*"
     }
 }

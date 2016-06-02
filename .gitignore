@@ -4,3 +4,6 @@ test.js
 
 # Get rid of vim temp files.
 *.swp
+
+# OSX
+.DS_STORE

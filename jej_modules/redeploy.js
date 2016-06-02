@@ -1,7 +1,9 @@
+/**
+ * Does a pull which should trigger the nodemon to restart the app.
+ */
 var redeployHandler = function(client, channel) {
-    client.sendMessage(channel, "Pulling...");
     require('simple-git').pull();
-    client.sendMessage(channel, "Done.");
+    client.sendMessage(channel, "Pulled from master.");
 }
 
 module.exports = redeployHandler;

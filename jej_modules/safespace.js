@@ -1,4 +1,4 @@
-var generateBox = require('tools/generate_box');
+var generateBox = require('../jej_modules/tools/generate_box');
 
 var safespaceHandler = function (client, channel, content) {
     if (!content)

@@ -70,6 +70,7 @@ var lfgHandler = function(client, channel, content, message) {
     else if (games.isSupported(tokens.game)) {
         console.log(username + " is looking for " + tokens.game + " for " + tokens.time + " minutes.");
         gameList.addGame(username, tokens.game);
+        client.sendMessage(channel, username + " is now looking for " + tokens.game + " for " + tokens.time + " minutes.");
     } else {
         console.log(tokens.game + ' was just queried. Invalid game, please check.');
         client.sendMessage(channel, "Invalid game. Here's what's available:\n" + games.pretty());

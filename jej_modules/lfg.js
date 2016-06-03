@@ -71,9 +71,11 @@ var lfgHandler = function(client, channel, content, message) {
     }
     // Handle supported games
     else if (games.isSupported(tokens.game)) {
-        console.log(username + " is looking for " + tokens.game + " for " + tokens.time + " minutes.");
-        gameList.addGame(username, tokens.game);
-        client.sendMessage(channel, username + " is now looking for " + tokens.game + " for " + tokens.time + " minutes.");
+        var matchedGame = games.findFirstOccurance(tokens.game);
+
+        console.log(username + " is looking for " + matchedGame + " for " + tokens.time + " minutes.");
+        gameList.addGame(username, matchedGame);
+        client.sendMessage(channel, username + " is now looking for " + matchedGame + " for " + tokens.time + " minutes.");
     // All other cases
     } else {
         console.log(tokens.game + ' was just queried. Invalid game, please check.');

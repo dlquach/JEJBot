@@ -2,7 +2,10 @@
 
 var games = {
     'Overwatch': true,
-    'League of Legends': true
+    'League of Legends': true,
+    'Starcraft 2': true,
+    'Hearthstone': true,
+    'Dota 2': true
 };
 
 function isSupported(name) {

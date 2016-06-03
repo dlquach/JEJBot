@@ -5,6 +5,11 @@ var games = require('../jej_modules/tools/games_supported');
 var GameList = require('../jej_modules/tools/gamelist');
 var gameList = new GameList();
 
+var usage = `Usage:
+!lfg\t\t\t\t\t\t\t\t\tTo see the current members LFG.
+!lfg support\t\t\t\t\tTo see games currently supported by LFG.
+!lfg <Game> <Time>\tTo add yourself to the LFG list.`;
+
 /**
  * Parse the message sent by the user. This will simply split into two tokens separated by a space.
  * If 
@@ -39,7 +44,7 @@ var lfgHandler = function(client, channel, content, message) {
     var tokens = parseContent(content);
 
     if (tokens === undefined) {
-        client.sendMessage(channel, "Correct usage: !lfg <Game> <Minutes Available> OR simply !lfg to see LFG list.");
+        client.sendMessage(channel, usage);
         return;
     }
    

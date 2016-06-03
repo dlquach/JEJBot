@@ -8,6 +8,18 @@ var games = {
     'Dota 2': true
 };
 
+var colloquial = {
+    'League of Legends': [
+        'lol',
+        'leg',
+        'leg of legends',
+        'riot'
+    ],
+    'Starcraft 2': [
+        'sc2'
+    ]
+};
+
 function isSupported(name) {
     if (name in games) {
         return true;

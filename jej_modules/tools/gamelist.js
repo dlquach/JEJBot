@@ -13,6 +13,10 @@ class GameList {
             this.games[playerName] = [game];
         }
     }
+
+    removePlayer(playerName) {
+        delete this.games[playerName];
+    }
     
     stringifyList() {
         var result = '';

@@ -8,6 +8,7 @@ var gameList = new GameList();
 var usage = `Usage:
 !lfg\t\t\t\t\t\t\t\t\tTo see the current members LFG.
 !lfg support\t\t\t\t\tTo see games currently supported by LFG.
+!lfg leave\t\t\t\t\t\tTo remove yourself from LFG entirely.
 !lfg <Game> <Time>\tTo add yourself to the LFG list.`;
 
 /**
@@ -22,6 +23,11 @@ function parseContent(content) {
 
     var tokens = content.split(' ');
     var mins = parseInt(tokens[tokens.length - 1]);
+
+    // Special cases
+    if (tokens[0] == 'support' || tokens[0] == 'leave') {
+        return tokens[0]
+    }
 
     // Token component validation.
     if (isNaN(mins)) {
@@ -50,12 +56,22 @@ var lfgHandler = function(client, channel, content, message) {
    
     // Empty string input means show the list. 
     if (tokens === "") {
+        console.log('LFG list queried by ' + username);
         client.sendMessage(channel, gameList.stringifyList());
+    } else if (tokens === 'support') {
+        console.log('Supported games being listed for ' + username);
+        client.sendMessage(channel, "Supported games:\n" + games.pretty());
+    } else if (tokens === 'leave') {
+        var msg = username + " has been removed from LFG.";
+        gameList.removePlayer(username);
+        console.log(msg);
+        client.sendMessage(channel, msg);
     }
     else if (games.isSupported(tokens.game)) {
         console.log(username + " is looking for " + tokens.game + " for " + tokens.time + " minutes.");
         gameList.addGame(username, tokens.game);
     } else {
+        console.log(tokens.game + ' was just queried. Invalid game, please check.');
         client.sendMessage(channel, "Invalid game. Here's what's available:\n" + games.pretty());
     }
 };

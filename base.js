@@ -38,7 +38,7 @@ client.on('message', function(message) {
             return;
         }
         if (command in handlers)
-            handlers[command](client, message.channel, content);
+            handlers[command](client, message.channel, content, message);
         else
             client.sendMessage(
                 message.channel, 

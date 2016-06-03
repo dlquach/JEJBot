@@ -52,4 +52,24 @@ describe('GameList Test', function() {
 
         done();
     });
+
+    it('Player A: Overwatch, Player B: Starcraft 2', function(done) {
+        var list = new GameList();
+
+        list.addGame('Player A', 'League of Legends');
+        list.addGame('Player B', 'Starcraft 2');
+
+        var expected = {
+            'Player A': ['League of Legends'],
+            'Player B': ['Starcraft 2']
+        };
+
+        // Test actual list contents.
+        (list.games).should.deep.equal(expected);
+        // Test stringify
+        (list.stringifyList()).should.equal("Player A\n - League of Legends\nPlayer B\n - Starcraft 2\n");
+
+        done();
+
+    });
 });

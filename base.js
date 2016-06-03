@@ -22,7 +22,7 @@ client.on('message', function(message) {
     if (contentStart)
         var content = msg.substring(msg.indexOf(contentStart));
     
-    if (invocationCheck === '!') {
+    if (invocationCheck === '%') {
         if (command === 'help') {
             client.sendMessage(
                 message.channel, 

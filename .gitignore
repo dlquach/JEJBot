@@ -6,4 +6,7 @@ test.js
 *.swp
 
 # OSX
-.DS_STORE
+.DS_Store
+
+# log files
+*.log

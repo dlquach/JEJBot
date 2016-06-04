@@ -58,19 +58,25 @@ var lfgHandler = function(client, channel, content, message) {
     if (tokens === "") {
         console.log('LFG list queried by ' + username);
         client.sendMessage(channel, gameList.stringifyList());
+    // Handle SUPPORT input
     } else if (tokens === 'support') {
         console.log('Supported games being listed for ' + username);
         client.sendMessage(channel, "Supported games:\n" + games.pretty());
+    // Handle LEAVE input
     } else if (tokens === 'leave') {
         var msg = username + " has been removed from LFG.";
         gameList.removePlayer(username);
         console.log(msg);
         client.sendMessage(channel, msg);
     }
+    // Handle supported games
     else if (games.isSupported(tokens.game)) {
-        console.log(username + " is looking for " + tokens.game + " for " + tokens.time + " minutes.");
-        gameList.addGame(username, tokens.game);
-        client.sendMessage(channel, username + " is now looking for " + tokens.game + " for " + tokens.time + " minutes.");
+        var matchedGame = games.findFirstOccurance(tokens.game);
+
+        console.log(username + " is looking for " + matchedGame + " for " + tokens.time + " minutes.");
+        gameList.addGame(username, matchedGame);
+        client.sendMessage(channel, username + " is now looking for " + matchedGame + " for " + tokens.time + " minutes.");
+    // All other cases
     } else {
         console.log(tokens.game + ' was just queried. Invalid game, please check.');
         client.sendMessage(channel, "Invalid game. Here's what's available:\n" + games.pretty());

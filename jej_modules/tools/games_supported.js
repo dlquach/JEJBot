@@ -7,7 +7,7 @@ var games = {
     'Starcraft 2': true,
     'Hearthstone': true,
     'Dota 2': true,
-    'RuneScape', true
+    'RuneScape': true
 };
 
 /**

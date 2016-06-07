@@ -101,7 +101,7 @@ function filePathFromName(uniqueName) {
  */
 function getExistingTimes(uniqueName, callback) {
     fs.readFile(filePathFromName(uniqueName), (error, data) => {
-        if (error) throw error;
+        if (error) return;
 
         var stats = JSON.parse(data);
 

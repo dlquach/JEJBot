@@ -24,8 +24,9 @@ function statsString(stats) {
 
 var statsHandler = function (client, channel, _, message) {
     var uniqueName = UserMethods.getUniqueName(message.author);
+    var id = UserMethods.getId(message.author);
 
-    GameStats.getExistingTimes(uniqueName, function (stats) {
+    GameStats.getExistingTimes(id, function (stats) {
         client.sendMessage(channel, statsString(stats));
     });
 };

@@ -10,7 +10,7 @@ var mkdirp = require('mkdirp');
 /**
  * Call when logging begins for a user playing a game.
  */
-function beginLogging(uniqueName, gameName) {
+function beginLogging(uniqueName, id, gameName) {
     console.log('Logging has begun for ' + uniqueName + ' playing ' + gameName);
 
     GameStats.addGame(uniqueName, gameName);
@@ -19,7 +19,7 @@ function beginLogging(uniqueName, gameName) {
 /**
  * Call when logging ends for a user playing a game.
  */
-function endLogging(uniqueName, gameName) {
+function endLogging(uniqueName, id, gameName) {
     console.log('Logging has ended for ' + uniqueName + ' playing ' + gameName);
 
     GameStats.getExistingTimes(uniqueName, (currStats) => {
@@ -35,7 +35,7 @@ function endLogging(uniqueName, gameName) {
             currStats[gameName] = seconds;
         }
 
-        GameStats.writeData(uniqueName, currStats);
+        GameStats.writeData(id, currStats);
     });
 }
 
@@ -46,13 +46,13 @@ function endLogging(uniqueName, gameName) {
  */
 function gameTracker(before, after) {
     var name = UserMethods.getUniqueName(before);
+    var id   = UserMethods.getId(before);
     var game;
     // If the game is on the before state, it has been quit.
     if (UserMethods.getGame(before)) {
         game = UserMethods.getGame(before);
         console.log(name + ' has quit ' + game);
     }
-
 
     // If a game has been quit, have it quit logging for that user.
     if (game) {
@@ -69,7 +69,7 @@ function gameTracker(before, after) {
                 }
             }
 
-            endLogging(name, tempGame);
+            endLogging(name, id, tempGame);
         });
     }
 
@@ -80,7 +80,7 @@ function gameTracker(before, after) {
     }
 
     if (game) {
-        beginLogging(name, game);
+        beginLogging(name, id, game);
     } 
 }
 

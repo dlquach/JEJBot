@@ -10,6 +10,10 @@ function getUsername(user) {
     return name + '#' + discrim.toString();
 };
 
+function getId(user) {
+    return user.id;
+}
+
 /**
  * Get the name of the game being played by the user. If there is no game being played, it will
  * return undefined.
@@ -27,5 +31,6 @@ function getGameName(user) {
 
 module.exports = {
     getUniqueName: getUsername,
+    getId: getId,
     getGame: getGameName
 };

@@ -6,6 +6,7 @@ var login = require('./credentials/login.js');
 // Import handlers
 var handlers = require('./jej_modules');
 
+var UserMethods = require('./jej_modules/tools/extract_info');
 
 console.log('JEJBot loaded with:');
 for (command in handlers) 
@@ -44,6 +45,23 @@ client.on('message', function(message) {
                 message.channel, 
                 'Unrecognized command. Say "!help" for commands.'
             );
+    }
+});
+
+client.on('presence', function(before, after) {
+    var name = UserMethods.getUniqueName(before);
+    
+    // Validation to make sure it's the same user whose presence has been logged.
+    var sameUser = name === UserMethods.getUniqueName(after);
+
+    if (sameUser) {
+        // If the game is on the before state, it has been quit.
+        if (UserMethods.getGame(before)) {
+        
+        // If the game is on the after state, they began to play it.  
+        } else if (UserMethods.getGame(after)) {
+
+        }
     }
 });
 

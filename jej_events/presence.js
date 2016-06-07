@@ -22,7 +22,7 @@ function beginLogging(uniqueName, id, gameName) {
 function endLogging(uniqueName, id, gameName) {
     console.log('Logging has ended for ' + uniqueName + ' playing ' + gameName);
 
-    GameStats.getExistingTimes(uniqueName, (currStats) => {
+    GameStats.getExistingTimes(id, (currStats) => {
         // Get the current time spent for the game.
         var seconds = GameStats.getTime(uniqueName, gameName);
 
@@ -60,12 +60,12 @@ function gameTracker(before, after) {
         var tempGame = game;
 
         // Make sure the user file exists. If not, create it.
-        fs.stat(GameStats.filePathFromName(name, tempGame), (err, res) => {
+        fs.stat(GameStats.filePathFromName(id, tempGame), (err, res) => {
             // If no err
             if (err) {
                 if (err.code === 'ENOENT') {
                     mkdirp(GameStats.folderPath);
-                    fs.writeFileSync(GameStats.filePathFromName(name, tempGame), '{}');
+                    fs.writeFileSync(GameStats.filePathFromName(id, tempGame), '{}');
                 }
             }
 

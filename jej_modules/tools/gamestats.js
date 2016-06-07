@@ -101,7 +101,10 @@ function filePathFromName(uniqueName) {
  */
 function getExistingTimes(uniqueName, callback) {
     fs.readFile(filePathFromName(uniqueName), (error, data) => {
-        if (error) return;
+        if (error) {
+            console.log("File name couldn't be found.");
+            return;
+        }
 
         var stats = JSON.parse(data);
 

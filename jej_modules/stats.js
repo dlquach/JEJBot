@@ -16,7 +16,7 @@ function statsString(stats) {
         var days = Math.floor(h / 24);
         var hours = Math.floor(h & 24);
 
-        result += game + ': ' + days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds\n';
+        result += game + '\n - ' + days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds\n\n';
     }
 
     return result;

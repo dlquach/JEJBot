@@ -5,16 +5,18 @@ var con = mysql.createConnection({
     database: "jejdb"
 });
 
-var printKarma = function (client, name) {
+var printKarma = function (client, channel, name) {
     con.query('SELECT * FROM karma WHERE `name` = ?', name, function(err, rows) {
         if (err) {
             console.log(err);
             return;
         }
-        var totalKarma = rows[0]['karma'];
-        var upvotes = rows[0]['upvotes'];
-        var downvotes = rows[0]['downvotes'];
-        client.sendMessage(channel, name + ": " + "total (" + totalKarma + "): " + upvotes + "++, " + downvotes + "--");
+        if (rows) {
+            var totalKarma = rows[0]['karma'];
+            var upvotes = rows[0]['upvotes'];
+            var downvotes = rows[0]['downvotes'];
+            client.sendMessage(channel, name + ": " + "total (" + totalKarma + "): " + upvotes + "++, " + downvotes + "--");
+        }
     });
 }
 

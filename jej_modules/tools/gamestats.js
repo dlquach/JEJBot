@@ -53,12 +53,14 @@ function removeGame(uniqueName, gameName) {
 }
 
 /**
- *  Get the time played from the user and name of the game.
+ *  Get the time played from the user and name of the game. If no suitable game, return undefined.
  */
 function getTime(uniqueName, gameName) {
     if (_gameExists(uniqueName, gameName)) {
         return stats[uniqueName][gameName].timePlayed();
     }
+
+    return undefined;
 };
 
 /**
@@ -86,5 +88,6 @@ function getTimes(uniqueName) {
 module.exports = {
     addGame: addGame,
     getTimes: getTimes,
+    getTime: getTime,
     removeGame: removeGame
 };

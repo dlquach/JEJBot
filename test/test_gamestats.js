@@ -37,7 +37,7 @@ describe('GameStats Test', function () {
         var times = gameLogger.getTimes('Test 1');
         for (var game in times) {
             expect(times[game]).to.be.above(0.0);
-        } 
+        }
 
         done();
     });

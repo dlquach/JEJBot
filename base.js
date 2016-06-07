@@ -6,7 +6,8 @@ var login = require('./credentials/login.js');
 // Import handlers
 var handlers = require('./jej_modules');
 
-var UserMethods = require('./jej_modules/tools/extract_info');
+var UserMethods = require('./jej_modules/tools/user_methods');
+var GameData = require('./jej_modules/tools/game_logger');
 
 console.log('JEJBot loaded with:');
 for (command in handlers) 
@@ -48,6 +49,33 @@ client.on('message', function(message) {
     }
 });
 
+/**
+ * Main function of the stats tracking feature of the bot. It assumes that if the user in the before state
+ * has a game, they are quitting that game. If a user in the after state has a game, they are just entering
+ * the game.
+ */
+function gameTracker(before, after) {
+    var name = UserMethods.getUniqueName(before);
+    var game;
+    // If the game is on the before state, it has been quit.
+    if (UserMethods.getGame(before)) {
+        game = UserMethods.getGame(before);
+        console.log(name + ' has quit '  + game);
+    }
+    
+    // If a game has been quit, have it quit logging for that user.
+    if (game) {
+        
+    };
+    
+    if (UserMethods.getGame(after)) {
+        game = UserMethods.getGame(after);
+        console.log(name + ' has begun playing ' + game);
+    }
+
+    
+}
+
 client.on('presence', function(before, after) {
     var name = UserMethods.getUniqueName(before);
     
@@ -55,13 +83,7 @@ client.on('presence', function(before, after) {
     var sameUser = name === UserMethods.getUniqueName(after);
 
     if (sameUser) {
-        // If the game is on the before state, it has been quit.
-        if (UserMethods.getGame(before)) {
-        
-        // If the game is on the after state, they began to play it.  
-        } else if (UserMethods.getGame(after)) {
-
-        }
+        gameTracker(before, after);
     }
 });
 

@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * From a user object, extract the name and the discriminator and attach to each other with a #.
  */

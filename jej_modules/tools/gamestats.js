@@ -44,17 +44,22 @@ function addGame(uniqueName, gameName) {
 
 function removeGame(uniqueName, gameName) {
     // Find the TimeData object corresponding to the gameName.
+    delete stats[uniqueName][gameName];
 }
 
+/**
+ * Get a dictionary of the times associated with each game from the input user name.
+ */
 function getTimes(uniqueName) {
     var gameList = stats[uniqueName];
 
+    // Iterate through the keys of the dictionary to get the array of times.
     return (Object.keys(gameList)).map(function (gameName) {
         var game = gameList[gameName];
 
-        console.log(game);
+        var dict = {};
 
-        return game.timePlayed();
+        return dict[gameName] = game.timePlayed();
     });
 }
 

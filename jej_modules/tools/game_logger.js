@@ -2,7 +2,7 @@
 
 var stats = {};
 
-class GameData {
+class TimeData {
     constructor(gameName) {
         this.game = gameName;
 
@@ -22,12 +22,21 @@ class GameData {
 }
 
 function addGame(uniqueName, gameName) {
-    stats[uniqueName] = new GameData(gameName);
-};
+    // If the name already exists, create a new gameName.
+    if (uniqueName in stats) {
+        stats[uniqueName].push(new TimeData(gameName));
+    } else {
+        stats[uniqueName] = [new TimeData(gameName)];
+    }
+}
+
+function removeGame(uniqueName, gameName) {
+    delete stats[uniqueName]
+}
 
 function getTimes(uniqueName) {
     
-};
+}
 
 module.exports = {
     addGame: addGame

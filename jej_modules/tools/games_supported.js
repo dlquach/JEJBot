@@ -50,7 +50,8 @@ function firstHit(query) {
 
     // If there is at least one hit, return the first game.
     if (results.length > 0) {
-        return results[0];
+        // This is Windows-specific, but remove instances of \r
+        return results[0].replace(/[\r\t\n]/, '');
     }
 
     return undefined;

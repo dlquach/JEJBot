@@ -7,7 +7,7 @@ var login = require('./credentials/login.js');
 var handlers = require('./jej_modules');
 
 var UserMethods = require('./jej_modules/tools/user_methods');
-var GameData = require('./jej_modules/tools/game_logger');
+var GameData = require('./jej_modules/tools/gamestats');
 
 console.log('JEJBot loaded with:');
 for (command in handlers) 

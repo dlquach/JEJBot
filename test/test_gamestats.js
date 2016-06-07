@@ -6,70 +6,39 @@ var describe = require('mocha/lib/mocha.js').describe;
 var expect = chai.expect;
 var should = chai.should();
 
-var GameList = require('../jej_modules/tools/gamelist');
+var gameLogger = require('../jej_modules/tools/gamestats');
 
-describe('GameList Test', function() {
-    it('Constructor', function(done) {
-        var list = new GameList();
-        
-        // Use deep equal for array equality. Should be empty.
-        (list.games).should.deep.equal({});
+describe('GameStats Test', function () {
+    it('add a game to the log then get the time', function (done) {
+        gameLogger.addGame('Test 1', 'League of Legends');
+
+        expect(gameLogger.getTimes('Test 1')).to.be.ok;
+        done();
+    });
+
+    it('remove the game that was previously added', function (done) {
+        gameLogger.removeGame('Test 1', 'League of Legends');
+        (gameLogger.getTimes('Test 1')).should.deep.equal({});
 
         done();
     });
 
-    it('Player A: League of Legends', function(done) {
-        var list = new GameList();
+    it('add multiple games and then get the times', function (done) {
+        gameLogger.addGame('Test 1', 'SC2');
+        gameLogger.addGame('Test 1', 'lol');
 
-        list.addGame('Player A', 'League of Legends');
-
-        var expected = {
-            'Player A': ['League of Legends']
-        };
-        
-        // Test actual list contents.
-        (list.games).should.deep.equal(expected);
-        // Test stringify
-        (list.stringifyList()).should.equal("Player A\n - League of Legends\n");
-
+        // Since I can't directly mess with the Timer object, validate with making sure there is 1 user with 2 games.
+        var times = gameLogger.getTimes('Test 1');
+        expect(Object.keys(times).length).to.equal(2);
         done();
     });
 
-    it('Player A: Overwatch, Starcraft 2', function(done) {
-        var list = new GameList();
-
-        list.addGame('Player A', 'League of Legends');
-        list.addGame('Player A', 'Starcraft 2');
-
-        var expected = {
-            'Player A': ['League of Legends', 'Starcraft 2']
-        };
-
-        // Test actual list contents.
-        (list.games).should.deep.equal(expected);
-        // Test stringify
-        (list.stringifyList()).should.equal("Player A\n - League of Legends\n - Starcraft 2\n");
+    it('possible flakey tests: make sure all timers are 0 seconds', function (done) {
+        var times = gameLogger.getTimes('Test 1');
+        for (var game in times) {
+            expect(times[game]).to.be.above(0.0);
+        } 
 
         done();
-    });
-
-    it('Player A: Overwatch, Player B: Starcraft 2', function(done) {
-        var list = new GameList();
-
-        list.addGame('Player A', 'League of Legends');
-        list.addGame('Player B', 'Starcraft 2');
-
-        var expected = {
-            'Player A': ['League of Legends'],
-            'Player B': ['Starcraft 2']
-        };
-
-        // Test actual list contents.
-        (list.games).should.deep.equal(expected);
-        // Test stringify
-        (list.stringifyList()).should.equal("Player A\n - League of Legends\nPlayer B\n - Starcraft 2\n");
-
-        done();
-
     });
 });

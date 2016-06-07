@@ -2,21 +2,31 @@
 
 var stats = {};
 
-function getTime() {
-    return new Date().getTime() / 1000;
-}
-
 class Timer {
     constructor() {
         // Start counting the time.
-        this.start = getTime();
+        this.start = new Date().getTime() / 1000;
     }
 
     timePlayed() {
-        var curr = getTime();
+        var curr = new Date().getTime() / 1000;
 
         return curr - this.start;
     }
+}
+
+/**
+ * Helper functon to help determine whether or not the game exists in the stats dictionary.
+ */
+function _gameExists(uniqueName, gameName) {
+    if (uniqueName in stats) {
+        if (gameName in stats[uniqueName]) {
+            return true;
+        }
+    }
+
+    // If the name or the game doesn't exist, return false.
+    return false;
 }
 
 /**
@@ -25,46 +35,56 @@ class Timer {
 function addGame(uniqueName, gameName) {
     // If the name already exists, check to see if the game does.
     if (uniqueName in stats) {
-        // Game should only be added if it doesn't exist in the dictionary for the user.
-        if (!(gameName in stats[uniqueName])) {
-            // Has to be this way or it'll create a dictionary with 'gameName' as key.
-            stats[uniqueName] = {};
             stats[uniqueName][gameName] = new Timer();
-            // If it does, then print it out to debug.
-        } else {
-            console.log("This should NOT have been reached.");
-            console.log("\tGameStats is adding a new Timer to a game that already exists: " + gameName);
-        }
-        // If the user doesn't even exist, just create everything.
     } else {
         stats[uniqueName] = {};
         stats[uniqueName][gameName] = new Timer();
     }
 }
 
+/**
+ * If the game exists in the stats dictionary, remove it. Otherwise do nothing. 
+ */
 function removeGame(uniqueName, gameName) {
     // Find the TimeData object corresponding to the gameName.
-    delete stats[uniqueName][gameName];
+    if (_gameExists(uniqueName, gameName)) {
+        delete stats[uniqueName][gameName];
+    }
 }
+
+/**
+ *  Get the time played from the user and name of the game.
+ */
+function getTime(uniqueName, gameName) {
+    if (_gameExists(uniqueName, gameName)) {
+        return stats[uniqueName][gameName].timePlayed();
+    }
+};
 
 /**
  * Get a dictionary of the times associated with each game from the input user name.
  */
 function getTimes(uniqueName) {
+    // If the user DNE, return undefined.
+    if (!(uniqueName in stats)) {
+        return undefined;
+    }
+
     var gameList = stats[uniqueName];
 
-    // Iterate through the keys of the dictionary to get the array of times.
-    return (Object.keys(gameList)).map(function (gameName) {
-        var game = gameList[gameName];
+    var dict = {};
 
-        var dict = {};
+    // Iterate through the keys and add the time played to the dictionary to be returned. 
+    for (var key in gameList) {
+        dict[key] = gameList[key].timePlayed();
+    }
 
-        return dict[gameName] = game.timePlayed();
-    });
+    return dict;
 }
 
 
 module.exports = {
     addGame: addGame,
-    getTimes: getTimes
+    getTimes: getTimes,
+    removeGame: removeGame
 };

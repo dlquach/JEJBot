@@ -33,11 +33,8 @@ describe('GameStats Test', function () {
         done();
     });
 
-    it('possible flakey tests: make sure all timers are 0 seconds', function (done) {
-        var times = gameLogger.getTimes('Test 1');
-        for (var game in times) {
-            expect(times[game]).to.be.above(0.0);
-        }
+    it('delete non-existant games', function (done) {
+        gameLogger.removeGame('Test 1', 'League of Legends');
 
         done();
     });

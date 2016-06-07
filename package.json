@@ -10,7 +10,8 @@
     
     "dependencies": {
         "discord.js": "*",
-        "google-images": "*"
+        "google-images": "*",
+        "mkdirp": "*"
     },
 
     "devDependencies": {

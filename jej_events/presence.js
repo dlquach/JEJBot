@@ -1,35 +1,11 @@
+"use strict";
+
 var fs = require('fs');
 
 var UserMethods = require('../jej_modules/tools/user_methods');
 var GameStats = require('../jej_modules/tools/gamestats');
 
-function filePathFromName(uniqueName) {
-    return './resources/stats/' + uniqueName + '.txt';
-}
-
-/**
- * Read in the data that exists for a particular user. This function assumes that the file associated
- * with the user already exists.
- */
-function readData(uniqueName, callback) {
-    fs.readFile(filePathFromName(uniqueName), (error, data) => {
-        if (error) throw error;
-
-        var stats = JSON.parse(data);
-
-        callback(stats);
-    });
-}
-
-/**
- * Given the stats input to the function, write data that is the string represntation of the JSON input.
- */
-function writeData(uniqueName, stats) {
-    console.log('Writing to ' + uniqueName);
-    fs.writeFile(filePathFromName(uniqueName), JSON.stringify(stats), (error) => {
-        if (error) throw error;
-    });
-}
+var mkdirp = require('mkdirp');
 
 /**
  * Call when logging begins for a user playing a game.
@@ -46,7 +22,7 @@ function beginLogging(uniqueName, gameName) {
 function endLogging(uniqueName, gameName) {
     console.log('Logging has ended for ' + uniqueName + ' playing ' + gameName);
 
-    readData(uniqueName, (currStats) => {
+    GameStats.getExistingTimes(uniqueName, (currStats) => {
         // Get the current time spent for the game.
         var seconds = GameStats.getTime(uniqueName, gameName);
 
@@ -59,7 +35,7 @@ function endLogging(uniqueName, gameName) {
             currStats[gameName] = seconds;
         }
 
-        writeData(uniqueName, currStats);
+        GameStats.writeData(uniqueName, currStats);
     });
 }
 
@@ -84,11 +60,12 @@ function gameTracker(before, after) {
         var tempGame = game;
 
         // Make sure the user file exists. If not, create it.
-        fs.stat(filePathFromName(name, tempGame), (err, res) => {
+        fs.stat(GameStats.filePathFromName(name, tempGame), (err, res) => {
             // If no err
             if (err) {
                 if (err.code === 'ENOENT') {
-                    fs.writeFileSync(filePathFromName(name, tempGame), '{}');
+                    mkdirp(GameStats.folderPath);
+                    fs.writeFileSync(GameStats.filePathFromName(name, tempGame), '{}');
                 }
             }
 

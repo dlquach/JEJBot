@@ -1,18 +1,19 @@
 "use strict";
 
+var fs = require('fs');
+
 var stats = {};
 
 class Timer {
     constructor() {
         // Start counting the time.
         this.start = new Date();
-
     }
 
     timePlayed() {
         var curr = new Date();
 
-        return Math.floor((curr - this.start) / 1000);
+        return Math.floor((curr - this.start) / 1000 );
     }
 }
 
@@ -36,7 +37,7 @@ function _gameExists(uniqueName, gameName) {
 function addGame(uniqueName, gameName) {
     // If the name already exists, check to see if the game does.
     if (uniqueName in stats) {
-            stats[uniqueName][gameName] = new Timer();
+        stats[uniqueName][gameName] = new Timer();
     } else {
         stats[uniqueName] = {};
         stats[uniqueName][gameName] = new Timer();
@@ -86,9 +87,50 @@ function getTimes(uniqueName) {
 }
 
 
+var folderPath = './resources/stats/';
+/**
+ * Helper function to get the filepath to the username.
+ */
+function filePathFromName(uniqueName) {
+    return folderPath + uniqueName + '.txt';
+}
+
+/**
+ * Read in the data that exists for a particular user. This function assumes that the file associated
+ * with the user already exists.
+ */
+function getExistingTimes(uniqueName, callback) {
+    fs.readFile(filePathFromName(uniqueName), (error, data) => {
+        if (error) throw error;
+
+        var stats = JSON.parse(data);
+
+        callback(stats);
+    });
+}
+
+/**
+ * Given the stats input to the function, write data that is the string represntation of the JSON input.
+ */
+function writeData(uniqueName, stats) {
+    console.log('Writing to ' + uniqueName);
+    fs.writeFile(filePathFromName(uniqueName), JSON.stringify(stats), (error) => {
+        if (error) throw error;
+    });
+}
+
 module.exports = {
     addGame: addGame,
+
+    folderPath: folderPath,
+    filePathFromName: filePathFromName,
+
+    getExistingTimes: getExistingTimes,
+
     getTimes: getTimes,
     getTime: getTime,
-    removeGame: removeGame
+
+    removeGame: removeGame,
+
+    writeData: writeData
 };

@@ -5,13 +5,14 @@ var stats = {};
 class Timer {
     constructor() {
         // Start counting the time.
-        this.start = new Date().getTime() / 1000;
+        this.start = new Date();
+
     }
 
     timePlayed() {
-        var curr = new Date().getTime() / 1000;
+        var curr = new Date();
 
-        return curr - this.start;
+        return Math.floor((curr - this.start) / 1000);
     }
 }
 

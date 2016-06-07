@@ -13,3 +13,6 @@ test.js
 
 # Stats being tracked should be unique to the bot.
 resources/stats
+
+# VS Code
+.vscode

@@ -13,6 +13,12 @@ class GameData {
     getCurrentTime() {
         return new Date().getTime() / 1000;
     }
+
+    get timePlayed() {
+        var curr = new Date().getTime() / 1000;
+
+        return curr - this.start;
+    }
 }
 
 function addGame(uniqueName, gameName) {
@@ -20,7 +26,7 @@ function addGame(uniqueName, gameName) {
 };
 
 function getTimes(uniqueName) {
-
+    
 };
 
 module.exports = {

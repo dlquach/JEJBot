@@ -1,14 +1,9 @@
 "use strict";
 
-// Use dictionary to make isSupported faster.
-var games = {
-    'Overwatch': true,
-    'League of Legends': true,
-    'Starcraft 2': true,
-    'Hearthstone': true,
-    'Dota 2': true,
-    'RuneScape': true
-};
+var fs = require('fs');
+
+// Obtain the list of games and separate by newline.
+var games = fs.readFileSync('resources/games_supported.txt', 'utf8').split('\n');
 
 /**
  * Check to see if the input name is a part of a larger title. For an example, inputting
@@ -18,10 +13,12 @@ var games = {
  */
 function _findGamesWithString(query) {
     var results = [];
-    for (var name in games) {
-        // Search for the string case-insensitive.
-        if ((name.toLowerCase()).indexOf(query.toLowerCase()) > -1) {
-            results.push(name);
+
+    for (var i = 0; i < games.length; ++i) {
+        var curr = games[i];
+
+        if ((curr.toLowerCase()).indexOf(query.toLowerCase()) > -1) {
+            results.push(curr);
         }
     }
 
@@ -53,7 +50,8 @@ function firstHit(query) {
 
     // If there is at least one hit, return the first game.
     if (results.length > 0) {
-        return results[0];
+        // This is Windows-specific, but remove instances of \r
+        return results[0].replace(/[\r\t\n]/, '');
     }
 
     return undefined;

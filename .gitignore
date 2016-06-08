@@ -10,3 +10,9 @@ test.js
 
 # log files
 *.log
+
+# Stats being tracked should be unique to the bot.
+resources/stats
+
+# VS Code
+.vscode

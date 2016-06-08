@@ -11,11 +11,8 @@
     "dependencies": {
         "discord.js": "*",
         "google-images": "*",
-<<<<<<< HEAD
         "mkdirp": "*"
-=======
         "mysql": "*"
->>>>>>> upstream/master
     },
 
     "devDependencies": {

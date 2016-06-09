@@ -28,7 +28,7 @@ function endLogging(uniqueName, id, gameName) {
 
         // If undefined seconds, just exit and don't do anything.
         if (seconds === undefined || seconds === null) {
-            return;
+            console.log('WARNING: Seconds is ' + seconds);
         }
 
         console.log("\tPlayed for " + seconds + " seconds.");
@@ -62,7 +62,7 @@ function gameTracker(before, after) {
     // If a game has been quit, have it quit logging for that user.
     if (game) {
         // Since stat is async, create temp so value is stored.
-        var tempGame = game;
+
 
         // Make sure the user file exists. If not, create it.
         fs.stat(GameStats.filePathFromName(id, tempGame), (err, res) => {

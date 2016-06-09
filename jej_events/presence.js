@@ -26,10 +26,17 @@ function endLogging(uniqueName, id, gameName) {
         // Get the current time spent for the game.
         var seconds = GameStats.getTime(uniqueName, gameName);
 
+        // If undefined seconds, just exit and don't do anything.
+        if (seconds === undefined || seconds === null) {
+            console.log('WARNING: Seconds is ' + seconds);
+        }
+
         console.log("\tPlayed for " + seconds + " seconds.");
 
         // Add the current time to the existing one, and save the resulting JSON.
-        if (gameName in currStats) {
+        // If the time stored in gameName is null, then make sure to account for that case.
+        // Althought I have no idea why that happens on Raspberry Pi.
+        if (gameName in currStats && currStats[gameName] !== null)) {
             currStats[gameName] += seconds;
         } else {
             currStats[gameName] = seconds;
@@ -57,7 +64,7 @@ function gameTracker(before, after) {
     // If a game has been quit, have it quit logging for that user.
     if (game) {
         // Since stat is async, create temp so value is stored.
-        var tempGame = game;
+
 
         // Make sure the user file exists. If not, create it.
         fs.stat(GameStats.filePathFromName(id, tempGame), (err, res) => {

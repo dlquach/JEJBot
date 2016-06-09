@@ -26,6 +26,11 @@ function endLogging(uniqueName, id, gameName) {
         // Get the current time spent for the game.
         var seconds = GameStats.getTime(uniqueName, gameName);
 
+        // If undefined seconds, just exit and don't do anything.
+        if (seconds === undefined || seconds === null) {
+            return;
+        }
+
         console.log("\tPlayed for " + seconds + " seconds.");
 
         // Add the current time to the existing one, and save the resulting JSON.

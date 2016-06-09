@@ -34,7 +34,9 @@ function endLogging(uniqueName, id, gameName) {
         console.log("\tPlayed for " + seconds + " seconds.");
 
         // Add the current time to the existing one, and save the resulting JSON.
-        if (gameName in currStats) {
+        // If the time stored in gameName is null, then make sure to account for that case.
+        // Althought I have no idea why that happens on Raspberry Pi.
+        if (gameName in currStats && currStats[gameName] !== null)) {
             currStats[gameName] += seconds;
         } else {
             currStats[gameName] = seconds;

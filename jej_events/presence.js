@@ -36,7 +36,7 @@ function endLogging(uniqueName, id, gameName) {
         // Add the current time to the existing one, and save the resulting JSON.
         // If the time stored in gameName is null, then make sure to account for that case.
         // Althought I have no idea why that happens on Raspberry Pi.
-        if (gameName in currStats && currStats[gameName] !== null)) {
+        if (gameName in currStats && currStats[gameName] !== null) {
             currStats[gameName] += seconds;
         } else {
             currStats[gameName] = seconds;
@@ -64,7 +64,7 @@ function gameTracker(before, after) {
     // If a game has been quit, have it quit logging for that user.
     if (game) {
         // Since stat is async, create temp so value is stored.
-
+        var tempGame = game;
 
         // Make sure the user file exists. If not, create it.
         fs.stat(GameStats.filePathFromName(id, tempGame), (err, res) => {

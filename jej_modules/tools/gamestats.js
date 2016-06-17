@@ -1,6 +1,7 @@
 "use strict";
 
 var fs = require('fs');
+var Logger = require('./logger');
 
 var stats = {};
 
@@ -116,7 +117,21 @@ function getExistingTimes(uniqueName, callback) {
  * Given the stats input to the function, write data that is the string represntation of the JSON input.
  */
 function writeData(uniqueName, stats) {
-    console.log('Writing to ' + uniqueName);
+    Logger.log('////////////////////////////////////////////');
+    Logger.log('Currently stored on memory:');
+    Logger.log(stats);
+
+    for (var key in stats) {
+        Logger.log(key + ": " + stats[key]);
+    }
+
+    Logger.log('////////////////////////////////////////////');
+    Logger.log('To be stored on disk:');
+    Logger.log(JSON.stringify(stats));
+    Logger.log('////////////////////////////////////////////');
+
+    
+
     fs.writeFile(filePathFromName(uniqueName), JSON.stringify(stats), (error) => {
         if (error) throw error;
     });

@@ -3,10 +3,20 @@
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 
+function _twoDigits(num) {
+    var s = num.toString();
+
+    return ("0" + s).slice(-2);
+}
+
 function _getCurrTimeString() {
     var d = new Date();
 
-    return d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var hours = _twoDigits(d.getHours());
+    var mins = _twoDigits(d.getMinutes());
+    var secs = _twoDigits(d.getSeconds());
+
+    return hours + ":" + mins + ":" + secs;
 }
 
 function _lineFormat(line) {

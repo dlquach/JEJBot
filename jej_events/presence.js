@@ -5,13 +5,15 @@ var fs = require('fs');
 var UserMethods = require('../jej_modules/tools/user_methods');
 var GameStats = require('../jej_modules/tools/gamestats');
 
+var Logger = require('../jej_modules/tools/logger');
+
 var mkdirp = require('mkdirp');
 
 /**
  * Call when logging begins for a user playing a game.
  */
 function beginLogging(uniqueName, id, gameName) {
-    console.log('Logging has begun for ' + uniqueName + ' playing ' + gameName);
+    Logger.log('Logging has begun for ' + uniqueName + ' playing ' + gameName);
 
     GameStats.addGame(uniqueName, gameName);
 }
@@ -20,7 +22,7 @@ function beginLogging(uniqueName, id, gameName) {
  * Call when logging ends for a user playing a game.
  */
 function endLogging(uniqueName, id, gameName) {
-    console.log('Logging has ended for ' + uniqueName + ' playing ' + gameName);
+    Logger.log('Logging has ended for ' + uniqueName + ' playing ' + gameName);
 
     GameStats.getExistingTimes(id, (currStats) => {
         // Get the current time spent for the game.
@@ -28,10 +30,10 @@ function endLogging(uniqueName, id, gameName) {
 
         // If undefined seconds, just exit and don't do anything.
         if (seconds === undefined || seconds === null) {
-            console.log('WARNING: Seconds is ' + seconds);
+            Logger.warn('WARNING: Seconds is ' + seconds);
         }
 
-        console.log("\tPlayed for " + seconds + " seconds.");
+        Logger.log("Played for " + seconds + " seconds.");
 
         // Add the current time to the existing one, and save the resulting JSON.
         // If the time stored in gameName is null, then make sure to account for that case.
@@ -58,7 +60,7 @@ function gameTracker(before, after) {
     // If the game is on the before state, it has been quit.
     if (UserMethods.getGame(before)) {
         game = UserMethods.getGame(before);
-        console.log(name + ' has quit ' + game);
+        Logger.log(name + ' has quit ' + game);
     }
 
     // If a game has been quit, have it quit logging for that user.
@@ -83,7 +85,7 @@ function gameTracker(before, after) {
     game = undefined;
     if (UserMethods.getGame(after)) {
         game = UserMethods.getGame(after);
-        console.log(name + ' has begun playing ' + game);
+        Logger.log(name + ' has begun playing ' + game);
     }
 
     if (game) {

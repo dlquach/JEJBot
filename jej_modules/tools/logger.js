@@ -66,4 +66,9 @@ class Logger {
 
 var logger = new Logger();
 
+// Print node.js version.
+for (var dependency in process.versions) {
+    logger.log(dependency + ": " + process.versions[dependency]);
+}
+
 module.exports = logger;

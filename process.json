@@ -1,0 +1,8 @@
+{
+    "apps" : [{
+        "name" : "jejbot",
+        "script" : "base.js",
+        "watch": ["base.js", "jej_modules"],
+        }]
+}
+

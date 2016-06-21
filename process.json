@@ -1,7 +1,7 @@
 {
     "apps" : [{
         "name" : "jejbot",
-        "script" : "src/cloudbot.js",
+        "script" : "base.js",
         "ignore_watch": ["output\/.*\.log", "resources\/stats\/.*\.txt"]
         }]
 }

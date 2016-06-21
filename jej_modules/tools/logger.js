@@ -28,7 +28,7 @@ function _lineFormat(line) {
 class Logger {
     constructor() {
         this.norm = [];
-        this.warn = [];
+        this.warning = [];
         this.err = [];
 
         mkdirp('output', function (err) {

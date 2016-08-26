@@ -28,6 +28,21 @@ describe("Safespace Test Operators", () => {
 // This set shouldn't expand the size of the box.
 describe("Safespace No Size Change", () => {
     it('safespace', () => {
+        var spaces = (" ").repeat(34);
+        var rows = safe.repeat(4);
+
+        var expected = "```\n";
+        expected += `${rows}\n`;
+        expected += `A${spaces}C\n`;
+        expected += `F${spaces}A\n`;
+        expected += `E${spaces}P\n`;
+        expected += `S            safespace             S\n`;
+        expected += `P${spaces}E\n`;
+        expected += `A${spaces}F\n`;
+        expected += `C${spaces}A\n`;
+        expected += `${rows.split('').reverse().join('')}\`\`\``;
+
+        safespace("safespace").should.equal(expected);
 
     });
     it('HI', () => {

@@ -14,7 +14,7 @@ var safespace = require('../jej_modules/tools/generate_box');
 
 // This set of tests should pass to make sure everything works corretly.
 // Should change to ES6 test to prevent all this overhead.
-describe("Safespace Test Operators", function() {
+describe("Safespace Test Operators", () => {
     it("SAFESPACE.repeat(3)", function(done) {
         var expected = "SAFESPACESAFESPACESAFESPACE";
 
@@ -26,8 +26,11 @@ describe("Safespace Test Operators", function() {
 });
 
 // This set shouldn't expand the size of the box.
-describe("Safespace No Size Change", function() {
-    it('HI', function(done) {
+describe("Safespace No Size Change", () => {
+    it('safespace', () => {
+
+    });
+    it('HI', () => {
         // The spaces between the letters in the box portion.
         var spaces = (" ").repeat(34);
         // The number of times SAFESPACE should be repeated.
@@ -45,11 +48,9 @@ describe("Safespace No Size Change", function() {
         expected += `${rows.split('').reverse().join('')}\`\`\``;
 
         safespace("HI").should.equal(expected);
-
-        done();
     });
 
-    it('Empty', function(done) {
+    it('Empty', () => {
         // The spaces between the letters.
         var spaces = (" ").repeat(34);
         var rows = safe.repeat(4);
@@ -64,11 +65,9 @@ describe("Safespace No Size Change", function() {
         expected += `A${spaces}F\n`;
         expected += `C${spaces}A\n`;
         expected += `${rows.split('').reverse().join('')}\`\`\``;
-
-        done();
     });
 
-    it('32 characters', function(done) {
+    it('32 characters', () => {
         var rows = safe.repeat(4);
         var spaces = (" ").repeat(34);
 
@@ -86,8 +85,6 @@ describe("Safespace No Size Change", function() {
         expected += `${rows.split('').reverse().join("")}\`\`\``;
 
         safespace(text).should.equal(expected);
-
-        done();
     });
 });
 
@@ -95,8 +92,8 @@ var firstHalf = 'abcdefghijklm';
 var secondHalf = 'nopqrstuvwxyz';
 var alphabet = firstHalf + secondHalf;
 
-describe("Safespace Size Change", function() {
-    it('33 characters', function(done) {
+describe("Safespace Size Change", () => {
+    it('33 characters', () => {
         var rows = safe.repeat(5);
         var spaces = (" ").repeat(43);
 
@@ -114,12 +111,9 @@ describe("Safespace Size Change", function() {
         expected += `${rows.split('').reverse().join("")}\`\`\``;
 
         safespace(text).should.equal(expected);
-
-        done();
-
     });
 
-    it('34 characters', function(done) {
+    it('34 characters', () => {
         var rows = safe.repeat(5);
         var spaces = (" ").repeat(43);
 
@@ -137,11 +131,9 @@ describe("Safespace Size Change", function() {
         expected += `${rows.split('').reverse().join("")}\`\`\``;
 
         safespace(text).should.equal(expected);
-
-        done();
     });
 
-    it('40 characters', function(done) {
+    it('40 characters', () => {
         var rows = safe.repeat(5);
         var spaces = (" ").repeat(43);
 
@@ -158,14 +150,11 @@ describe("Safespace Size Change", function() {
         expected += `C${spaces}A\n`;
         expected += `${rows.split('').reverse().join("")}\`\`\``;
 
-    safespace(text).should.equal(expected);
-
-    done();
-
+        safespace(text).should.equal(expected);
     });
 
 
-    it('41 characters', function(done) {
+    it('41 characters', () => {
         var rows = safe.repeat(5);
         var spaces = (" ").repeat(43);
 
@@ -181,12 +170,9 @@ describe("Safespace Size Change", function() {
         expected += `${rows.split('').reverse().join("")}\`\`\``;
 
         safespace(alphabet + firstHalf).should.equal(expected);
-
-        done();
-
     });
 
-    it('off by juan off by juan  off by juan  off by juan', function(done) {
+    it('off by juan off by juan  off by juan  off by juan', () => {
         var rows = safe.repeat(6);
         var spaces = (" ").repeat(52);
 
@@ -205,11 +191,9 @@ describe("Safespace Size Change", function() {
         expected += `${rows.split('').reverse().join("")}\`\`\``;
 
         safespace(juan).should.equal(expected);
-
-        done();
     });
 
-    it('yuto is a japanese guy who likes to play adc', function(done) {
+    it('yuto is a japanese guy who likes to play adc', () => {
         var rows = safe.repeat(6);
         var spaces = (" ").repeat(52);
 
@@ -228,7 +212,5 @@ describe("Safespace Size Change", function() {
         expected += `${rows.split('').reverse().join("")}\`\`\``;
 
         safespace(juan).should.equal(expected);
-
-        done();
     });
 });

@@ -49,10 +49,10 @@ var printTopKarma = function(client, channel) {
         if (rows) {
             var message = '';
             for (row in rows) {
-                var name = rows['name'];
-                var totalKarma = rows['karma'];
-                var upvotes = rows['upvotes'];
-                var downvotes = rows['downvotes'];
+                var name = row['name'];
+                var totalKarma = row['karma'];
+                var upvotes = row['upvotes'];
+                var downvotes = row['downvotes'];
                 var messageFragment = name + ": " + "total (" + totalKarma + "): " + upvotes + "++, " + downvotes + "--";
                 message = message + messageFragment + "\n";
             }

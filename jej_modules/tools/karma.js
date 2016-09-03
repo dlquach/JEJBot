@@ -40,6 +40,28 @@ var downvote = function(name) {
     });
 }
 
+var printTopKarma = function(client, channel) {
+    con.query('SELECT * FROM karma ORDER BY karma DESC Limit 5', name, function(err, rows) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        if (rows) {
+            var message = '';
+            for (row in rows) {
+                var totalKarma = rows['karma'];
+                var upvotes = rows['upvotes'];
+                var downvotes = rows['downvotes'];
+                var messageFragment = name + ": " + "total (" + totalKarma + "): " + upvotes + "++, " + downvotes + "--";
+                message = message + messageFragment + "\n";
+            }
+            client.sendMessage(channel, message);
+        }
+    });
+
+}
+
 module.exports.printKarma = printKarma; 
 module.exports.upvote = upvote; 
 module.exports.downvote = downvote; 
+module.exports.printTopKarma = printTopKarma; 

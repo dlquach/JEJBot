@@ -41,7 +41,7 @@ var downvote = function(name) {
 }
 
 var printTopKarma = function(client, channel) {
-    con.query('SELECT * FROM karma ORDER BY karma DESC Limit 5', name, function(err, rows) {
+    con.query('SELECT * FROM karma ORDER BY karma DESC Limit 5', function(err, rows) {
         if (err) {
             console.log(err);
             return;
@@ -49,6 +49,7 @@ var printTopKarma = function(client, channel) {
         if (rows) {
             var message = '';
             for (row in rows) {
+                var name = rows['name'];
                 var totalKarma = rows['karma'];
                 var upvotes = rows['upvotes'];
                 var downvotes = rows['downvotes'];

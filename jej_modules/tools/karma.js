@@ -22,6 +22,7 @@ var printKarma = function (client, channel, name) {
 }
 
 var upvote = function (name) {
+    name = name.trim();
     con.query('INSERT INTO karma (name, karma, upvotes, downvotes) VALUES (?, 1, 1, 0) ON DUPLICATE KEY UPDATE  karma = karma + 1, upvotes = upvotes + 1', name, function(err, rows) {
         if (err) {
             console.log(err);
@@ -32,6 +33,7 @@ var upvote = function (name) {
 }
 
 var downvote = function(name) {
+    name = name.trim();
     con.query('INSERT INTO karma (name, karma, upvotes, downvotes) VALUES (?, -1, 0, 1) ON DUPLICATE KEY UPDATE  karma = karma - 1, downvotes = downvotes + 1', name, function(err, rows) {
         if (err) {
             console.log(err);

@@ -6,7 +6,6 @@ var login = require('./credentials/login.js');
 // Import handlers
 var handlers = require('./jej_modules');
 
-var presenceHandler = require('./jej_events/presence');
 var karma = require('./jej_modules/tools/karma.js');
 
 console.log('JEJBot loaded with:');
@@ -59,8 +58,5 @@ client.on('message', function(message) {
             );
     }
 });
-
-// Handle when a change in presence is sent.
-client.on('presence', presenceHandler);
 
 client.login(login.username, login.password);

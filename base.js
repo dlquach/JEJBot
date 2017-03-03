@@ -62,5 +62,10 @@ client.on('message', function(message) {
             );
     }
 });
+ 
+client.on('disconnected', function() {
+    console.log("Disconnected!");
+    process.exit(1);
+});
 
 client.login(login.username, login.password);

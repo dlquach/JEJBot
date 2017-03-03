@@ -51,7 +51,7 @@ client.on('message', function(message) {
         }
         if (command in handlers)
             handlers[command](client, message.channel, content, message);
-        else if (command === '' || command[1] === '!') {
+        else if (command === '' || command[0] === '!') {
             // Change this to check alphanumeric or something later
             return;
         }

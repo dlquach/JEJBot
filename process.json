@@ -1,8 +1,10 @@
 {
     "apps" : [{
         "name" : "jejbot",
+        "watch" : "true,
         "script" : "base.js",
-        "ignore_watch": ["output\/.*\.log", "resources\/stats\/.*\.txt"]
+        "ignore_watch": ["output\/.*\.log", "resources\/stats\/.*\.txt"],
+        "auto_restart": true
         }]
 }
 

@@ -7,10 +7,12 @@
     "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
-    "discord.js": "7.0.1",
+    "discord.js": "^7.0.1",
     "google-images": "*",
     "mkdirp": "*",
     "mysql": "*",
+    "node-opus": "*",
+    "sleep": "*",
     "yelp": "^1.0.1"
   },
   "devDependencies": {

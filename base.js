@@ -68,4 +68,4 @@ client.on('disconnected', function() {
     process.exit(1);
 });
 
-client.login(login.username, login.password);
+client.login(login.token);

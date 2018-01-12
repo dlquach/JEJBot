@@ -1,7 +1,7 @@
 var keys = require('../credentials/keys.js');
 
 const googleImages = require('google-images');
-var imageClient = googleImages(keys.cseID, keys.apiKey);
+var imageClient = new googleImages(keys.cseID, keys.apiKey);
 
 var imageHandler = function (client, channel, content) {
     if (!content) {

@@ -16,7 +16,7 @@ var printKarma = function (client, channel, name) {
             var totalKarma = rows[0]['karma'];
             var upvotes = rows[0]['upvotes'];
             var downvotes = rows[0]['downvotes'];
-            client.sendMessage(channel, name + ": " + "total (" + totalKarma + "): " + upvotes + "++, " + downvotes + "--");
+            channel.send(name + ": " + "total (" + totalKarma + "): " + upvotes + "++, " + downvotes + "--");
         }
     });
 }
@@ -58,7 +58,7 @@ var printTopKarma = function(client, channel) {
                 var messageFragment = name + ": " + "total (" + totalKarma + "): " + upvotes + "++, " + downvotes + "--";
                 message = message + messageFragment + "\n";
             }
-            client.sendMessage(channel, message);
+            channel.send(message);
         }
     });
 

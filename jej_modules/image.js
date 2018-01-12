@@ -5,7 +5,7 @@ var imageClient = new googleImages(keys.cseID, keys.apiKey);
 
 var imageHandler = function (client, channel, content) {
     if (!content) {
-        client.sendMessage(channel, "Usage: !image <query>");
+        channel.send("Usage: !image <query>");
         return;
     }
     console.log("Searching for: ", content);
@@ -14,7 +14,7 @@ var imageHandler = function (client, channel, content) {
             var randomIndex = Math.floor((Math.random() * images.length));
             console.log("Random index: ", randomIndex);
             console.log("Num results: ", images.length);
-            client.sendMessage(channel, images[randomIndex]['url']);
+            channel.send(images[randomIndex]['url']);
     });
 }
 

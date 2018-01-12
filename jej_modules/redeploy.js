@@ -3,7 +3,7 @@
  */
 var redeployHandler = function(client, channel) {
     require('simple-git')().pull();
-    client.sendMessage(channel, "Pulled from master.");
+    channel.send("Pulled from master.");
 }
 
 module.exports = redeployHandler;

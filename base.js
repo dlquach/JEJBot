@@ -36,13 +36,11 @@ client.on('message', function(message) {
     
     if (invocationCheck === '!') {
         if (command === 'help') {
-            client.sendMessage(
-                message.channel, 
+            message.channel.send(
                 'Supported commands:'
             ).then( function () {
                 for (command in handlers) {
-                    client.sendMessage(
-                        message.channel, 
+                    message.channel.send(
                         ' - ' + command
                     );
                 }
@@ -56,8 +54,7 @@ client.on('message', function(message) {
             return;
         }
         else
-            client.sendMessage(
-                message.channel, 
+            message.channel.send(
                 'Unrecognized command. Say "!help" for commands.'
             );
     }

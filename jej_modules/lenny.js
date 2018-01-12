@@ -1,5 +1,5 @@
 var lennyHandler = function(client, channel) {
-    client.sendMessage(channel, "( ͡° ͜ʖ ͡°)");
+    channel.send("( ͡° ͜ʖ ͡°)");
 }
 
 module.exports = lennyHandler;

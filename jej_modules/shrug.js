@@ -1,5 +1,5 @@
 var shrugHandler = function(client, channel) {
-    client.sendMessage(channel, "¯\\_(ツ)_/¯");
+    channel.send("¯\\_(ツ)_/¯");
 }
 
 module.exports = shrugHandler;

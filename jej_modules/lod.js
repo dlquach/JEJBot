@@ -1,5 +1,5 @@
 var lodHandler = function(client, channel) {
-    client.sendMessage(channel, "ಠ__ಠ");
+    channel.send("ಠ__ಠ");
 }
 
 module.exports = lodHandler;

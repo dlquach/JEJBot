@@ -1,5 +1,5 @@
 var whyHandler = function(client, channel) {
-    client.sendMessage(channel, "щ(ﾟДﾟщ)");
+    channel.send("щ(ﾟДﾟщ)");
 }
 
 module.exports = whyHandler;

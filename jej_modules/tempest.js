@@ -12,9 +12,7 @@ var tempestHandler = function (client, channel, content, message) {
 }
 
 function playTempest(connection, channel) {
-    const dispatcher = connection.playFile(
-        '../audio/tempest.wav',
-    );
+    const dispatcher = connection.playFile('./audio/tempest.wav');
     dispatcher.on('end', end => {
         channel.leave();
     });

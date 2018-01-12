@@ -1,5 +1,4 @@
 var Discord = require('discord.js');
-var sleep = require('sleep');
 
 var tempestHandler = function (client, channel, content, message) {
     for (var channel of channel.guild.channels) {

@@ -5,28 +5,19 @@ var tempestHandler = function (client, channel, content, message) {
     voice.join()
         .then(
             connection => {
-                console.log(voice);
-                return playTempest(connection, voice);
+                playTempest(connection, voice);
             }
         )
         .catch(console.error);
 }
 
 function playTempest(connection, channel) {
-    connection.playFile(
+    const dispatcher = connection.playFile(
         '../audio/tempest.wav',
-        {
-            volume: '1.0',
-        },
-        function (error, intent) {
-            if (error) console.log(error);
-            intent.on("end", function() {
-                connection.stopPlaying();
-                client.leaveVoiceChannel(channel).catch(error);
-                console.log('done');
-            });
-        }
     );
+    dispatcher.on('end', end => {
+        channel.leave();
+    });
 }
 
 function error(e) {

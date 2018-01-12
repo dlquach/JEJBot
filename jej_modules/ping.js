@@ -1,5 +1,5 @@
 var pingHandler = function (client, channel) {
-    client.sendMessage(channel, "pong");
+    channel.send("pong");
 }
 
 module.exports = pingHandler;

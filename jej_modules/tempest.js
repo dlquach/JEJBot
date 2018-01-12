@@ -4,10 +4,11 @@ var tempestHandler = function (client, channel, content, message) {
     const voice = message.member.voiceChannel;
     voice.join()
         .then(
-            connection =>
-            console.log(voice);
-            return playTempest(connection, voice);
-        })
+            connection => {
+                console.log(voice);
+                return playTempest(connection, voice);
+            }
+        )
         .catch(console.error);
 }
 

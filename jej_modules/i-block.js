@@ -1,7 +1,7 @@
 var Perms = require('./tools/image-permissions');
 
 var iBlockHandler = function (client, channel, content) {
-    var usageText = "Usage: !i-block <add | remove | list> <input>");
+    var usageText = "Usage: !i-block <add | remove | list> <input>";
 
     if (!content) {
         channel.send(usageText);

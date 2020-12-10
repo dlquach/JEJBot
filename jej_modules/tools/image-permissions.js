@@ -42,7 +42,7 @@ class ImagePermissions {
     }
 
     stringifyDeniedDomains() {
-        return this._deniedDomains.join('\n');
+        return this._deniedDomains.join('\n') || "No domains are blocked";
     }
 }
 

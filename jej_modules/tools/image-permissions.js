@@ -1,13 +1,15 @@
 class ImagePermissions {
-    deniedDomains = [];
-    domainRegex = /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
+    constructor() {
+        this._deniedDomains = [];
+        this.domainRegex = /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
+    }
 
     /**
      * Block input domain on all !image calls.
      * @param {string} domain 
      */
     addToDeniedDomains(domain) {
-        this.deniedDomains.push(domain);
+        this._deniedDomains.push(domain);
     }
 
     /**
@@ -15,24 +17,35 @@ class ImagePermissions {
      * @param {string} domain 
      */
     removeFromDeniedDomains(domain) {
-        this.deniedDomains = this.deniedDomains.filter(itm => itm !== domain);
+        this._deniedDomains = this._deniedDomains.filter(itm => itm !== domain);
     }
 
     /**
      * Check storage and return boolean based on input URL contains a blocked domain.
      * @param {string} url 
      */
-    checkDomainIsDenied(url) {
+    domainIsAllowed(url) {
         // Will break if query string is unescaped and has URL format
-        var found = this.deniedDomains.filter(domain => domain.match(this.domainRegex).length > 0);
-        return found.length > 0;
+        var dmn = url.match(this.domainRegex);
+
+        if (dmn.length > 0) {
+            var found = this._deniedDomains.filter(domain => dmn[0].includes(domain));
+            return found.length > 0;
+        }
+
+        // Input URL doesn't have a valid domain from regex
+        return false;
+    }
+
+    clearDeniedDomains() {
+        this._deniedDomains = [];
     }
 
     stringifyDeniedDomains() {
-        return this.deniedDomains.join('\n');
+        return this._deniedDomains.join('\n');
     }
 }
 
-var ImageValidator = ImagePermissions();
+var ImageValidator = new ImagePermissions();
 
 module.exports = ImageValidator;

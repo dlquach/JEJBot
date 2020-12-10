@@ -18,7 +18,7 @@ var imageHandler = function (client, channel, content) {
                 randomIndex = Math.floor((Math.random() * images.length));
                 console.log("Random index: ", randomIndex);
                 console.log("Num results: ", images.length);
-            } while (Perms.checkDomainIsDenied(images[randomIndex]['url']))
+            } while (!Perms.domainIsAllowed(images[randomIndex]['url']))
 
             channel.send(images[randomIndex]['url']);
     });

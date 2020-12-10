@@ -3,11 +3,19 @@ class ImagePermissions {
     domainRegex = /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
 
     /**
-     * Specified domain will be added to the list of image domains that will get denied.
+     * Block input domain on all !image calls.
      * @param {string} domain 
      */
     addToDeniedDomains(domain) {
-        this.denied.push(domain);
+        this.deniedDomains.push(domain);
+    }
+
+    /**
+     * Allow the input domain to be used in !image calls again.
+     * @param {string} domain 
+     */
+    removeFromDeniedDomains(domain) {
+        this.deniedDomains = this.deniedDomains.filter(itm => itm !== domain);
     }
 
     /**
@@ -19,6 +27,10 @@ class ImagePermissions {
         var found = url.match(this.domainRegex);
 
         return found.length > 0;
+    }
+
+    stringifyDeniedDomains() {
+        return this.deniedDomains.join('\n');
     }
 }
 

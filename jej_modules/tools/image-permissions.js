@@ -1,7 +1,26 @@
+var fs = require('fs');
+
 class ImagePermissions {
     constructor() {
-        this._deniedDomains = [];
+        this._filePath = './blocked.txt';
+
+        this._readFromFile();
         this.domainRegex = /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/;
+    }
+
+    _readFromFile() {
+        try {
+            const blocked = fs.readFileSync(this._filePath, 'utf8');
+            this._deniedDomains = blocked.split('\n');
+        } catch (err) {
+            // If file can't be found, empty list
+            this._deniedDomains = [];
+        }
+    }
+
+    _writeToFile() {
+        // w flag to create file and overwrite
+        fs.writeFile(this._filePath, this._deniedDomains.join('\n'), { flag: 'w' }, () => null);
     }
 
     /**
@@ -10,6 +29,7 @@ class ImagePermissions {
      */
     addToDeniedDomains(domain) {
         this._deniedDomains.push(domain);
+        this._writeToFile();
     }
 
     /**
@@ -18,6 +38,7 @@ class ImagePermissions {
      */
     removeFromDeniedDomains(domain) {
         this._deniedDomains = this._deniedDomains.filter(itm => itm !== domain);
+        this._writeToFile();
     }
 
     /**

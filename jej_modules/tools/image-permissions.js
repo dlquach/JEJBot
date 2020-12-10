@@ -24,8 +24,7 @@ class ImagePermissions {
      */
     checkDomainIsDenied(url) {
         // Will break if query string is unescaped and has URL format
-        var found = url.match(this.domainRegex);
-
+        var found = this.deniedDomains.filter(domain => domain.match(this.domainRegex).length > 0);
         return found.length > 0;
     }
 

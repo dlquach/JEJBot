@@ -13,15 +13,19 @@ var imageHandler = function (client, channel, content) {
     imageClient.search(content)
         .then(function (images, anything) {
             let randomIndex = 0;
+            
+            // Save this bot from overwork :(
+            let cycle = 0;
 
             console.log("Num results: ", images.length);
             do {
                 randomIndex = Math.floor((Math.random() * images.length));
                 console.log("Random index: ", randomIndex);
-            } while (!Perms.domainIsAllowed(images[randomIndex]['url']))
+                cycle++;
+            } while (!Perms.domainIsAllowed(images[randomIndex]['url']) && cycle < 100)
 
             channel.send(images[randomIndex]['url']);
-    });
+        });
 }
 
 module.exports = imageHandler;

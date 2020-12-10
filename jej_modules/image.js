@@ -12,12 +12,12 @@ var imageHandler = function (client, channel, content) {
     console.log("Searching for: ", content);
     imageClient.search(content)
         .then(function (images, anything) {
-            var randomIndex = 0;
+            let randomIndex = 0;
 
+            console.log("Num results: ", images.length);
             do {
                 randomIndex = Math.floor((Math.random() * images.length));
                 console.log("Random index: ", randomIndex);
-                console.log("Num results: ", images.length);
             } while (!Perms.domainIsAllowed(images[randomIndex]['url']))
 
             channel.send(images[randomIndex]['url']);

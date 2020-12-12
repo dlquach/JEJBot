@@ -11,7 +11,7 @@ var expect = chai.expect;
 var should = chai.should();
 
 describe('Image Permissions', () => {
-    afterEach(() => {
+    beforeEach(() => {
         Perms.clearDeniedDomains();
     });
 
@@ -35,9 +35,9 @@ describe('Image Permissions', () => {
         Perms.addToDeniedDomains('jej.bot');
         Perms.addToDeniedDomains('bot.jej');
 
-        expect(Perms.domainIsAllowed('http://www.jej.bot')).to.be.true;
-        expect(Perms.domainIsAllowed('https://www.jej.bot')).to.be.true;
-        expect(Perms.domainIsAllowed('hasdr://asert.jej.bot')).to.be.true;
-        expect(Perms.domainIsAllowed('https://jaj.bot')).to.be.false;
+        expect(Perms.domainIsBlocked('http://www.jej.bot')).to.be.true;
+        expect(Perms.domainIsBlocked('https://www.jej.bot')).to.be.true;
+        expect(Perms.domainIsBlocked('hasdr://asert.jej.bot')).to.be.true;
+        expect(Perms.domainIsBlocked('https://jaj.bot')).to.be.false;
     })
 });

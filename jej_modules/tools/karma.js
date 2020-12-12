@@ -50,7 +50,7 @@ var printTopKarma = function(client, channel) {
         }
         if (rows) {
             var message = '';
-            for (row in rows) {
+            for (row of rows) {
                 var name = row['name'];
                 var totalKarma = row['karma'];
                 var upvotes = row['upvotes'];

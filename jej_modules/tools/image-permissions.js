@@ -45,7 +45,7 @@ class ImagePermissions {
      * Check storage and return boolean based on input URL contains a blocked domain.
      * @param {string} url 
      */
-    domainIsAllowed(url) {
+    domainIsBlocked(url) {
         // Will break if query string is unescaped and has URL format
         var dmn = url.match(this.domainRegex);
 

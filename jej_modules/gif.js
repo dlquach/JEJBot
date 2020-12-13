@@ -21,8 +21,9 @@ var gifHandler = function (client, channel, content) {
             do {
                 randomIndex = Math.floor((Math.random() * images.length));
                 console.log("Random index: ", randomIndex);
+                console.log("url: ", images[randomIndex]['url']);
                 cycle++;
-            } while (!Perms.domainIsAllowed(images[randomIndex]['url']) && cycle < 100)
+            } while (Perms.domainIsBlocked(images[randomIndex]['url']) && cycle < 100)
 
             channel.send(images[randomIndex]['url']);
         });

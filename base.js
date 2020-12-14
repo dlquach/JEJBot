@@ -13,6 +13,10 @@ for (command in handlers)
     console.log(" - ", command);
 
 client.on('message', function(message) {
+    // ignore all bots
+    if (message.author.bot) {
+        return;
+    }
     var msg = message.content;
     var formattedMessage = msg.split(' ', 2);
     var invocationCheck = formattedMessage[0][0];

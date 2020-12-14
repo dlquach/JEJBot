@@ -8,7 +8,7 @@ var imageClient = new googleImages(keys.cseID, keys.apiKey);
 // ex. {type: 'animated'}
 var search = function (client, channel, content, options) {
     if (!content) {
-        channel.send("Usage: !gif <query>");
+        channel.send("Provide query please");
         return;
     }
     console.log("Searching for: ", content);
@@ -19,6 +19,10 @@ var search = function (client, channel, content, options) {
             // Save this bot from overwork :(
             let cycle = 0;
 
+            if (images.length == 0) {
+                channel.send("No results found for: " + content);
+                return;
+            }
             console.log("Num results: ", images.length);
             do {
                 randomIndex = Math.floor((Math.random() * images.length));

@@ -35,4 +35,40 @@ var search = function (client, channel, content, options) {
         });
 }
 
+var bingSearch = function (client, channel, content, options) {
+    let https = require('https');
+    let host = 'api.bing.microsoft.com';
+    let path = '/v7.0/images/search';
+
+    // no options for now
+    let request_params = {
+        method : 'GET',
+        hostname : host,
+        path : path + '?q=' + encodeURIComponent(content) + '&' + options,
+        headers : {
+            'Ocp-Apim-Subscription-Key' : keys.bingApiKey,
+        }
+    };
+
+    let response_handler = function (response) {
+        let body = '';
+        response.on('data', function (d) {
+            body += d;
+        });
+        response.on('end', function () {
+            let imageResult = JSON.parse(body);
+            let images = imageResult.value;
+            let randomIndex = Math.floor((Math.random() * imageResult.value.length));
+            let imageUrl = images[randomIndex]['contentUrl'];
+            channel.send(imageUrl);
+            console.log(`Image result count: ${imageResult.value.length}`);
+            console.log('Chosen image url:', imageUrl);
+        });
+    };
+
+    let req = https.request(request_params, response_handler);
+    req.end();
+}
+
 module.exports.search = search; 
+module.exports.bingSearch = bingSearch; 

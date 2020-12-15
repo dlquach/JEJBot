@@ -58,6 +58,10 @@ var bingSearch = function (client, channel, content, options) {
         response.on('end', function () {
             let imageResult = JSON.parse(body);
             let images = imageResult.value;
+            if (images.length == 0) {
+                channel.send("No results found for: " + content);
+                return;
+            }
             let randomIndex = Math.floor((Math.random() * imageResult.value.length));
             let imageUrl = images[randomIndex]['contentUrl'];
             channel.send(imageUrl);

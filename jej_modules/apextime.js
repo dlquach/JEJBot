@@ -37,12 +37,12 @@ var apextime = function (_, channel) {
         2
 
     ]
+
     var rotasum = 0;
     for (let i = 0; i < rota.length; ++i) {
         var lowerbound = rotasum;
         var upperbound = rotasum + rota[i];
         if (lowerbound < t4 && t4 < upperbound) {
-            console.log(i);
             let timeremaining = upperbound - t4;
             let hours = Math.floor(timeremaining);
             let minutes = Math.floor(timeremaining % 1 * 60);

@@ -42,10 +42,10 @@ var apextime = function (client, channel) {
             let minutes = Math.floor (timeremaining%1 * 60);
             let trstring = hours + ":" + minutes; 
             if(i%2 === 0){
-                channel.send("Current Map: Olympoos   Time Remaining: " + trstring)
+                channel.send("Current Map: Olympus   Time Remaining: " + trstring)
             }
             else {
-                channel.send("Current Map: shit map   Time Remaining: " + trstring)
+                channel.send("Current Map: World's Edge   Time Remaining: " + trstring)
             }
         }
         rotasum += rota[i]

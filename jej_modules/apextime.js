@@ -44,9 +44,16 @@ var apextime = function (_, channel) {
         var upperbound = rotasum + rota[i];
         if (lowerbound < t4 && t4 < upperbound) {
             let timeremaining = upperbound - t4;
-            let hours = Math.floor(timeremaining);
-            let minutes = Math.floor(timeremaining % 1 * 60);
-            let trstring = hours + ":" + minutes;
+
+            // Get a time where hour, mins, and seconds are zeroed out.
+            let zeroHour = moment().clone().startOf('day');
+            
+            // Add the remaining amount of time to zeroed date
+            zeroHour.add(timeremaining, 'hours');
+
+            // String to be displayed.
+            let trstring = zeroHour.format('h:mm')
+
             if (i % 2 === 0) {
                 channel.send("Current Map: Olympus   Time Remaining: " + trstring)
             }

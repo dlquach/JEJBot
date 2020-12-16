@@ -52,7 +52,7 @@ var apextime = function (_, channel) {
             zeroHour.add(timeremaining, 'hours');
 
             // String to be displayed.
-            let trstring = zeroHour.format('h:mm')
+            let trstring = zeroHour.format('H:mm')
 
             if (i % 2 === 0) {
                 channel.send("Current Map: Olympus   Time Remaining: " + trstring)

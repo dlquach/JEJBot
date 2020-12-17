@@ -26,6 +26,9 @@ function isModule(fname) {
 fs.readdirSync(__dirname + '/').forEach(function (file) {
     if (isModule(file)) {
         var name = file.replace('.js', '');
-        exports[name] = require('./' + file);
+        const imported = require(`./${file}`);
+        
+        // Allow the commandName variable in each file to override default filename invocation.
+        exports[imported.commandName || name] = imported;
     }
 });

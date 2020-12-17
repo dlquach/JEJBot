@@ -6,11 +6,12 @@ var login = require('./credentials/login.js');
 // Import handlers
 var handlers = require('./jej_modules');
 
-var karma = require('./jej_modules/tools/karma.js');
-
 console.log('JEJBot loaded with:');
-for (command in handlers) 
-    console.log(" - ", command);
+console.log(handlers)
+
+for (let command in handlers) {
+    console.log(`- ${command}`);
+}
 
 client.on('message', function(message) {
     // ignore all bots
@@ -26,11 +27,11 @@ client.on('message', function(message) {
     // Check for voting commands for karma
     var lastTwoChars = msg.slice(-2);
     if (lastTwoChars === '++') {
-        karma.upvote(msg.slice(0, msg.length - 2));
+//        karma.upvote(msg.slice(0, msg.length - 2));
         return;
     }
     else if (lastTwoChars === '--') {
-        karma.downvote(msg.slice(0, msg.length - 2));
+//        karma.downvote(msg.slice(0, msg.length - 2));
         return;
     }
 

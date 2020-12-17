@@ -9,7 +9,9 @@ function isModule(fname) {
 
     // If the module exists inside a folder, check for an index.js file to import.
     const modulePath = path.join(__dirname, fname);
+    // Check if current fname is a folder.
     if (fs.lstatSync(modulePath).isDirectory()) {
+        // Check each file within folder for an index.js
         for (const file of fs.readdirSync(modulePath)) {
             if (file === 'index.js') {
                 return true;

@@ -13,11 +13,20 @@ for (let command in handlers) {
     console.log(`- ${command}`);
 }
 
+// Accumulate handlers meant to process every message
+const allMessageHandlers = Object.keys(handlers).filter(k => handlers[k].onAllMessages);
+
 client.on('message', function(message) {
     // ignore all bots
     if (message.author.bot) {
         return;
     }
+
+    // Call handlers that run on all messages
+    for (const cmd of allMessageHandlers) {
+        handlers[cmd].onAllMessages(client, message.channel);
+    }
+    
     var msg = message.content;
     var formattedMessage = msg.split(' ', 2);
     var invocationCheck = formattedMessage[0][0];

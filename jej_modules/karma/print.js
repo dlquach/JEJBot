@@ -6,11 +6,15 @@ function printKarma(_, channel, name) {
             console.log(err);
             return;
         }
-        if (rows) {
+
+        // Check rows returns usable values
+        if (rows && rows.length > 0) {
             var totalKarma = rows[0]['karma'];
             var upvotes = rows[0]['upvotes'];
             var downvotes = rows[0]['downvotes'];
             channel.send(name + ": " + "total (" + totalKarma + "): " + upvotes + "++, " + downvotes + "--");
+        } else {
+            channel.send(`karma for: ${name} does not exist`);
         }
     });
 }

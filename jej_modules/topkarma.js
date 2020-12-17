@@ -1,7 +1,7 @@
-var karma = require('../jej_modules/tools/karma.js');
+const topKarma = require('./karma/topkarma');
 
 var topkarmaHandler = function (client, channel) {
-    karma.printTopKarma(client, channel);
+    topKarma(client, channel);
 }
 
 module.exports = topkarmaHandler;

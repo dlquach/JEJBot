@@ -29,7 +29,7 @@ client.on('message', function (message) {
         return;
     }
 
-    const msg = message.content;
+    const msg = message.content.trim();
     // Assume trigger char always is at the beginning of message.
     const invocation = msg[0];
 

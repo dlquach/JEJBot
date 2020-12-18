@@ -3,14 +3,8 @@ var client = new Discord.Client({ queue: true });
 
 var login = require('./credentials/login.js');
 
-// Import handlers
-var handlers = require('./jej_modules');
-
-
 // Accumulate handlers meant to process every message
-const allMessageHandlers = Object.keys(handlers).filter(k => handlers[k].onAllMessages);
-const botInvocationHandlers = require('./jej_modules/tools/invocations').botInvocationHandlers;
-
+const { allMessageHandlers, botInvocationHandlers } = require('./jej_modules/tools/invocations');
 
 // Print out commands the bot will interpret
 console.log('JEJBot loaded with:');

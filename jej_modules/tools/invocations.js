@@ -7,6 +7,9 @@ const botInvocationHandlers = Object.keys(handlers).filter(k => typeof (handlers
 		return prev;
 	}, {});
 
+const allInvocationHandlers = Object.keys(handlers).filter(k => handlers[k].onAllMessages);
+
 module.exports = {
-	botInvocationHandlers
+	botInvocationHandlers,
+	allInvocationHandlers
 }

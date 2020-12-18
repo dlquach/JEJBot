@@ -32,29 +32,17 @@ client.on('message', function(message) {
         handlers[cmd].onAllMessages(client, message);
     }
     
-    var msg = message.content;
-    var formattedMessage = msg.split(' ', 2);
-    var invocationCheck = formattedMessage[0][0];
-    var command = formattedMessage[0].substring(1);
-    var contentStart = formattedMessage[1];
+    const msg = message.content;
+    const formattedMessage = msg.split(' ', 2);
+    const invocationCheck = formattedMessage[0][0];
+    const command = formattedMessage[0].substring(1);
+    const contentStart = formattedMessage[1];
 
     // lmao hacky
     if (contentStart)
         var content = msg.substring(msg.indexOf(contentStart));
     
     if (invocationCheck === '!') {
-        if (command === 'help') {
-            message.channel.send(
-                'Supported commands:'
-            ).then( function () {
-                for (command in handlers) {
-                    message.channel.send(
-                        ' - ' + command
-                    );
-                }
-            });
-            return;
-        }
         if (command in botInvocationHandlers)
             botInvocationHandlers[command](client, message.channel, content, message);
         else if (command === '' || command[0] === '!') {

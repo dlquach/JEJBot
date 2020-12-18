@@ -27,5 +27,5 @@ function assignKarma(client, message) {
 
 module.exports = { 
 	onBotInvocation: printKarma,
-	onNonBotInvocations: assignKarma
+	onNonBotInvocation: assignKarma
 };

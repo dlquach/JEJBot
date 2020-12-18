@@ -4,7 +4,7 @@ var client = new Discord.Client({ queue: true });
 var login = require('./credentials/login.js');
 
 // Accumulate handlers meant to process every message
-const { allMessageHandlers, botInvocationHandlers } = require('./jej_modules/tools/invocations');
+const { nonBotInvocationHandlers, botInvocationHandlers } = require('./jej_modules/tools/invocations');
 
 // Print out commands the bot will interpret
 console.log('JEJBot loaded with:');
@@ -53,9 +53,9 @@ client.on('message', function (message) {
 
     // If a bot command wasn't invoked, then run it through all background listeners.
     if (!cmdInvoked) {
-        for (const cmd of allMessageHandlers) {
+        for (const cmd in nonBotInvocationHandlers) {
             // This can be replaced with event-emitters if the bot grows large.
-            handlers[cmd].onNonBotInvocations(client, message);
+            nonBotInvocationHandlers[cmd](client, message);
         }
     }
 });

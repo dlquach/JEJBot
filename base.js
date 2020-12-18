@@ -6,15 +6,17 @@ var login = require('./credentials/login.js');
 // Import handlers
 var handlers = require('./jej_modules');
 
-console.log('JEJBot loaded with:');
-console.log(handlers)
-
-for (let command in handlers) {
-    console.log(`- ${command}`);
-}
 
 // Accumulate handlers meant to process every message
 const allMessageHandlers = Object.keys(handlers).filter(k => handlers[k].onAllMessages);
+const botInvocationHandlers = require('./jej_modules/tools/invocations').botInvocationHandlers;
+
+
+// Print out commands the bot will interpret
+console.log('JEJBot loaded with:');
+for (let command in botInvocationHandlers) {
+    console.log(`- ${command}`);
+}
 
 client.on('message', function(message) {
     // ignore all bots
@@ -22,9 +24,12 @@ client.on('message', function(message) {
         return;
     }
 
-    // Call handlers that run on all messages
+    /**
+     * This should only be called if a bot invocation wasn't made.
+     * Call handlers that run on all messages
+     */
     for (const cmd of allMessageHandlers) {
-        handlers[cmd].onAllMessages(client, message.channel);
+        handlers[cmd].onAllMessages(client, message);
     }
     
     var msg = message.content;
@@ -32,17 +37,6 @@ client.on('message', function(message) {
     var invocationCheck = formattedMessage[0][0];
     var command = formattedMessage[0].substring(1);
     var contentStart = formattedMessage[1];
-
-    // Check for voting commands for karma
-    var lastTwoChars = msg.slice(-2);
-    if (lastTwoChars === '++') {
-//        karma.upvote(msg.slice(0, msg.length - 2));
-        return;
-    }
-    else if (lastTwoChars === '--') {
-//        karma.downvote(msg.slice(0, msg.length - 2));
-        return;
-    }
 
     // lmao hacky
     if (contentStart)
@@ -61,8 +55,8 @@ client.on('message', function(message) {
             });
             return;
         }
-        if (command in handlers)
-            handlers[command](client, message.channel, content, message);
+        if (command in botInvocationHandlers)
+            botInvocationHandlers[command](client, message.channel, content, message);
         else if (command === '' || command[0] === '!') {
             // Change this to check alphanumeric or something later
             return;

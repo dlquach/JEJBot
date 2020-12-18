@@ -60,7 +60,7 @@ client.on('message', function (message) {
     // If a bot command wasn't invoked, then run it through all background listeners.
     if (!cmdInvoked) {
         for (const cmd of allMessageHandlers) {
-            handlers[cmd].onAllMessages(client, message);
+            handlers[cmd].onNonBotInvocations(client, message);
         }
     }
 });

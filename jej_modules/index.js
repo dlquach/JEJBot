@@ -27,7 +27,7 @@ fs.readdirSync(__dirname + '/').forEach(function (file) {
     if (isModule(file)) {
         var name = file.replace('.js', '');
         const imported = require(`./${file}`);
-        
+
         // Allow the commandName variable in each file to override default filename invocation.
         exports[imported.commandName || name] = imported;
     }

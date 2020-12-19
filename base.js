@@ -1,59 +1,47 @@
 var Discord = require('discord.js');
-var client = new Discord.Client({ queue : true });
+var client = new Discord.Client({ queue: true });
 
 var login = require('./credentials/login.js');
 
-// Import handlers
-var handlers = require('./jej_modules');
+// Accumulate handlers meant to process every message
+const { nonBotInvocationHandlers, botInvocationHandlers } = require('./jej_modules/tools/invocations');
 
-var karma = require('./jej_modules/tools/karma.js');
-
+// Print out commands the bot will interpret
 console.log('JEJBot loaded with:');
-for (command in handlers) 
-    console.log(" - ", command);
+for (let command in botInvocationHandlers) {
+    console.log(`- ${command}`);
+}
 
-client.on('message', function(message) {
+// The character to invoke bot commands.
+const invocationCommand = '!';
+// This character signifies the token that splits command from content
+const tokenDelimiter = ' ';
+
+client.on('message', function (message) {
     // ignore all bots
     if (message.author.bot) {
         return;
     }
-    var msg = message.content;
-    var formattedMessage = msg.split(' ', 2);
-    var invocationCheck = formattedMessage[0][0];
-    var command = formattedMessage[0].substring(1);
-    var contentStart = formattedMessage[1];
 
-    // Check for voting commands for karma
-    var lastTwoChars = msg.slice(-2);
-    if (lastTwoChars === '++') {
-        karma.upvote(msg.slice(0, msg.length - 2));
-        return;
-    }
-    else if (lastTwoChars === '--') {
-        karma.downvote(msg.slice(0, msg.length - 2));
-        return;
-    }
+    const msg = message.content.trim();
+    // Assume trigger char always is at the beginning of message.
+    const invocation = msg[0];
 
-    // lmao hacky
-    if (contentStart)
-        var content = msg.substring(msg.indexOf(contentStart));
-    
-    if (invocationCheck === '!') {
-        if (command === 'help') {
-            message.channel.send(
-                'Supported commands:'
-            ).then( function () {
-                for (command in handlers) {
-                    message.channel.send(
-                        ' - ' + command
-                    );
-                }
-            });
-            return;
+    // Grab where the command ends. If message is just a command, return the length of the message. 
+    const commandSplit = msg.indexOf(tokenDelimiter) > -1 ? msg.indexOf(tokenDelimiter) : msg.length;
+    // First char is invocation, so grab second char to the first space.
+    const command = msg.substring(1, commandSplit)
+    // To get the content, get the substring from the split index + length of delimiter.
+    const content = msg.substring(commandSplit + tokenDelimiter.length);
+
+    // Keep track of whether a bot command was invoked.
+    let cmdInvoked = false;
+    if (invocation === invocationCommand) {
+        if (command in botInvocationHandlers) {
+            botInvocationHandlers[command](client, message.channel, content, message);
+            cmdInvoked = true;
         }
-        if (command in handlers)
-            handlers[command](client, message.channel, content, message);
-        else if (command === '' || command[0] === '!') {
+        else if (command === '' || command[0] === invocationCommand) {
             // Change this to check alphanumeric or something later
             return;
         }
@@ -62,9 +50,17 @@ client.on('message', function(message) {
                 'Unrecognized command. Say "!help" for commands.'
             );
     }
+
+    // If a bot command wasn't invoked, then run it through all background listeners.
+    if (!cmdInvoked) {
+        for (const cmd in nonBotInvocationHandlers) {
+            // This can be replaced with event-emitters if the bot grows large.
+            nonBotInvocationHandlers[cmd](client, message);
+        }
+    }
 });
- 
-client.on('disconnected', function() {
+
+client.on('disconnected', function () {
     console.log("Disconnected!");
     process.exit(1);
 });

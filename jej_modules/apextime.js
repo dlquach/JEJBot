@@ -65,4 +65,7 @@ var apextime = function (_, channel) {
     }
 }
 
-module.exports = apextime;
+module.exports = {
+    commandName: 'apextime',
+    onBotInvocation: apextime,
+};

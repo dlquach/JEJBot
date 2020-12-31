@@ -11,7 +11,7 @@ var eightBallHandler = function (client, channel, content, message) {
         'most likely',
         'my sources say no',
         'reply hazy, try again',
-        'don\`t count on it',
+        'don\'t count on it',
         'certainly',
         'indeed'
     ];

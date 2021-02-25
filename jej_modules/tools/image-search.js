@@ -35,7 +35,7 @@ var search = function (client, channel, content, options) {
         });
 }
 
-var bingSearch = function (client, channel, content, options) {
+var bingSearch = function (client, channel, content, options, numImages = 1) {
     let https = require('https');
     let host = 'api.bing.microsoft.com';
     let path = '/v7.0/images/search';
@@ -62,11 +62,14 @@ var bingSearch = function (client, channel, content, options) {
                 channel.send("No results found for: " + content);
                 return;
             }
-            let randomIndex = Math.floor((Math.random() * imageResult.value.length));
-            let imageUrl = images[randomIndex]['contentUrl'];
-            channel.send(imageUrl);
+
             console.log(`Image result count: ${imageResult.value.length}`);
-            console.log('Chosen image url:', imageUrl);
+            for (var i = 0; i < numImages; i++) {
+                let randomIndex = Math.floor((Math.random() * imageResult.value.length));
+                let imageUrl = images[randomIndex]['contentUrl'];
+                channel.send(imageUrl);
+                console.log('Chosen image url:', imageUrl);
+            }
         });
     };
 

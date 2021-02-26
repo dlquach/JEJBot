@@ -57,6 +57,14 @@ var bingSearch = function (client, channel, content, options, numImages = 1) {
         });
         response.on('end', function () {
             let imageResult = JSON.parse(body);
+            if (imageResult.error) {
+                console.log(imageResult.error);
+                if (imageResult.error.code === '403') {
+                    channel.send('Bing quota exceeded. Big G:');
+                    search(client, channel, content, options);
+                }
+                return;
+            }
             let images = imageResult.value;
             if (images.length == 0) {
                 channel.send("No results found for: " + content);

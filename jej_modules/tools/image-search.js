@@ -62,8 +62,10 @@ var bingSearch = function (client, channel, content, options, numImages = 1) {
             if (imageResult.error) {
                 console.log(imageResult.error);
                 if (imageResult.error.code === '403') {
-                    channel.send('Bing quota exceeded. Fallback...');
-                    rapidSearch(client, channel, content, numImages);
+                    channel.send('Bing quota exceeded. Fallback...')
+                        .then(msg => {
+                            rapidSearch(client, channel, msg, content, numImages);
+                        });
                 }
                 return;
             }
@@ -88,7 +90,7 @@ var bingSearch = function (client, channel, content, options, numImages = 1) {
 }
 
 
-var rapidSearch = function (client, channel, content, numImages = 1) {
+var rapidSearch = function (client, channel, msg, content, numImages = 1) {
     // https://rapidapi.com/contextualwebsearch/api/web-search for documentation
     const options = {
       method: 'GET',
@@ -117,6 +119,7 @@ var rapidSearch = function (client, channel, content, numImages = 1) {
                 console.log('Chosen image url:', imageUrl);
             }
         }
+        msg.delete(1);
     });
 }
 

@@ -1,3 +1,5 @@
+const request = require('request');
+
 var keys = require('../../credentials/keys.js');
 var Perms = require('./image-permissions');
 
@@ -60,8 +62,8 @@ var bingSearch = function (client, channel, content, options, numImages = 1) {
             if (imageResult.error) {
                 console.log(imageResult.error);
                 if (imageResult.error.code === '403') {
-                    channel.send('Bing quota exceeded. Big G:');
-                    search(client, channel, content, options);
+                    channel.send('Bing quota exceeded. Fallback...');
+                    rapidSearch(client, channel, content, numImages);
                 }
                 return;
             }
@@ -84,6 +86,40 @@ var bingSearch = function (client, channel, content, options, numImages = 1) {
     let req = https.request(request_params, response_handler);
     req.end();
 }
+
+
+var rapidSearch = function (client, channel, content, numImages = 1) {
+    // https://rapidapi.com/contextualwebsearch/api/web-search for documentation
+    const options = {
+      method: 'GET',
+      url: 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI',
+      qs: {q: content, pageNumber: '1', pageSize: '10', autoCorrect: 'false'},
+      headers: {
+        'x-rapidapi-key': keys.rapidApiKey,
+        'x-rapidapi-host': 'contextualwebsearch-websearch-v1.p.rapidapi.com',
+        useQueryString: true
+      }
+    };
+
+    request(options, function (error, response, body) {
+        if (error) console.log(error);
+        console.log(body);
+        let imageResult = JSON.parse(body);
+        if (imageResult.totalCount == 0) {
+            channel.send('No results for: ' + content);
+        } else {
+            let images = imageResult.value;
+            console.log(`Image result count: ${imageResult.totalCount}`);
+            for (var i = 0; i < numImages; i++) {
+                let randomIndex = Math.floor((Math.random() * images.length));
+                let imageUrl = images[randomIndex]['url'];
+                channel.send(imageUrl);
+                console.log('Chosen image url:', imageUrl);
+            }
+        }
+    });
+}
+
 
 module.exports.search = search; 
 module.exports.bingSearch = bingSearch; 

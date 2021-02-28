@@ -13,6 +13,7 @@
     "moment": "2.29.1",
     "mysql": "*",
     "node-opus": "^0.2.7",
+    "request": "^2.88.2",
     "yelp": "^1.0.1"
   },
   "devDependencies": {

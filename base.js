@@ -17,12 +17,7 @@ const invocationCommand = '!';
 // This character signifies the token that splits command from content
 const tokenDelimiter = ' ';
 
-client.on('message', function (message) {
-    // ignore all bots
-    if (message.author.bot) {
-        return;
-    }
-
+var parseMessage = function (message) {
     const msg = message.content.trim();
     // Assume trigger char always is at the beginning of message.
     const invocation = msg[0];
@@ -58,6 +53,10 @@ client.on('message', function (message) {
             nonBotInvocationHandlers[cmd](client, message);
         }
     }
+}
+
+client.on('message', function (message) {
+    parseMessage(message);
 });
 
 client.on('disconnected', function () {
@@ -66,3 +65,5 @@ client.on('disconnected', function () {
 });
 
 client.login(login.token);
+
+module.exports = { parseMessage };

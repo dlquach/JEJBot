@@ -16,7 +16,6 @@ const nonBotInvocationHandlers = Object.keys(handlers).filter(k => handlers[k].o
 		return arrayToInvokeDict('onNonBotInvocation', prev, curr);
 	}, {});
 
-	
 module.exports = {
 	botInvocationHandlers,
 	nonBotInvocationHandlers

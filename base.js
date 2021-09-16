@@ -47,7 +47,7 @@ var parseMessage = function (message) {
     }
 
     // If a bot command wasn't invoked, then run it through all background listeners.
-    if (!cmdInvoked) {
+    if (!cmdInvoked && !message.author.bot) {
         for (const cmd in nonBotInvocationHandlers) {
             // This can be replaced with event-emitters if the bot grows large.
             nonBotInvocationHandlers[cmd](client, message);

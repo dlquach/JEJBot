@@ -23,7 +23,7 @@ var parseMessage = function (message) {
     const invocation = msg[0];
 
     // say you're welcome when thanked
-    if (message.isMemberMentioned(client.user) && msg.indexOf('thanks') > -1) {
+    if (message.isMemberMentioned(client.user) && msg.indexOf('thank') > -1) {
         message.channel.send('you got it, ' + message.author);
     }
 

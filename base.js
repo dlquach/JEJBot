@@ -22,6 +22,11 @@ var parseMessage = function (message) {
     // Assume trigger char always is at the beginning of message.
     const invocation = msg[0];
 
+    // say you're welcome when thanked
+    if (message.isMemberMentioned(client.user) && msg.indexOf('thanks') > -1) {
+        message.channel.send('you got it, ' + message.author);
+    }
+
     // Grab where the command ends. If message is just a command, return the length of the message. 
     const commandSplit = msg.indexOf(tokenDelimiter) > -1 ? msg.indexOf(tokenDelimiter) : msg.length;
     // First char is invocation, so grab second char to the first space.

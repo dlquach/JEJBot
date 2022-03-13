@@ -9,11 +9,14 @@
   "dependencies": {
     "discord.js": "^11.2.1",
     "google-images": "*",
+    "headless-chrome-crawler": "^1.8.0",
     "mkdirp": "*",
     "moment": "2.29.1",
     "mysql": "*",
+    "node-html-parser": "^5.2.0",
     "node-opus": "^0.2.7",
     "request": "^2.88.2",
+    "snoowrap": "^1.23.0",
     "yelp": "^1.0.1"
   },
   "devDependencies": {
